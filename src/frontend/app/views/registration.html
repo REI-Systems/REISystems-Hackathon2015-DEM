@@ -1,0 +1,54 @@
+<h1>Registration</h1>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident voluptatibus veniam ipsum minus aperiam ut dicta. Vel veritatis, at molestiae ea, voluptatem quam non hic dolorem excepturi iure numquam magnam!</p>
+<form id="registration" ng-submit="submit()">
+<div>	
+	<h2>Business Information</h2>
+	<div class="left">
+		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Business Name">
+		<input ng-model="form.phone" type="text" id="phoneNumber" placeholder="Contact Info: Phone Number">
+		<input ng-model="form.email" type="email" id="email" placeholder="Contact Info: Email">
+	</div>
+
+	<div class="right">
+		<input ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #">
+		<div>
+			<select ng-init="form.state = stateOptions[0].value" 
+			ng-model="form.state" 
+			ng-options="option.value as option.name for option in stateOptions">
+			</select>
+			<input ng-model="form.zip" type="text" id="zip" placeholder="Zip Code">
+		</div>
+		<select ng-init="form.disasterParticipation = disasterParticipationOptions[0].value" 
+		ng-model="form.disasterParticipation"
+		ng-options="option.value as option.name for option in disasterParticipationOptions">
+		</select>
+	</div>
+</div>
+<div>
+	<h2>Assistance Preferences</h2>
+	<div class="left">
+		<select ng-init="form.assistanceInterest = assistanceInterestOptions[0].value" 
+		ng-model="form.assistanceInterest"
+		ng-options="option.value as option.name for option in assistanceInterestOptions">
+		</select>
+		<select ng-init="form.disasterInterest = disasterInterestOptions[0].value"
+		ng-model="form.disasterInterest"
+		ng-options="option.value as option.name for option in disasterInterestOptions">
+		</select>
+	</div>
+
+	<div class="right">
+		<select ng-init="form.serviceInterest = serviceInterestOptions[0].value"
+		ng-model="form.serviceInterest"
+		ng-options="option.value as option.name for option in serviceInterestOptions">
+		</select>
+		<select ng-init="form.compensationType = compensationTypeOptions[0].value"
+		ng-model="form.compensationType"
+		ng-options="option.value as option.name for option in compensationTypeOptions">
+		</select>
+	</div>
+</div>
+
+<input class="btn btn-default" type="submit" id="submit" value="Submit"/>
+</form>
