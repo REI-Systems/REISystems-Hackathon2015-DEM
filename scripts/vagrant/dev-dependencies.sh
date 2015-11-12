@@ -43,15 +43,6 @@ npm install -g generator-angular
 echo "Install Karma unit testing framework Frontend..."
 npm install -g karma
 
-echo "Install SailsJS ..."
-npm install -g sails
-
-echo "Install PM2 for launching SailsJS App in prod ..."
-npm install pm2 -g --unsafe-perm
-
-echo "Install Mocha unit testing framework Backend..."
-npm install -g mocha
-
 echo "Install HTTP Server to run frontend app (prod mode)..."
 npm install http-server -g
 
