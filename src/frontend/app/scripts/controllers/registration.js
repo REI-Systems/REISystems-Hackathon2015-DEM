@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -12,50 +13,38 @@ angular.module('frontendApp')
     $scope.form = {};
     $scope.processing = false;
     $scope.stateOptions = [
-    	{
-	    	name: 'State',
-	    	value: null
-    	},
 		{
 	    	name: 'Virginia',
-	    	value: null
+	    	value: 'VA'
     	}
     ];
     $scope.disasterParticipationOptions = [
-    	{
-	    	name: 'Disasters You Participated in',
-	    	value: null
-    	},
+    	{ name: 'test', value: 'test' }
     ];
     $scope.assistanceInterestOptions = [
-    	{
-	    	name: 'Type of Assistance you are interested in',
-	    	value: null
-    	},
+    	{ name: 'test', value: 'test' }
     ];
     $scope.disasterInterestOptions = [
-    	{
-	    	name: 'Type of Disaster you are interested in',
-	    	value: null
-    	},
+    	{ name: 'test', value: 'test' }
     ];
     $scope.serviceInterestOptions = [
-    	{
-	    	name: 'Radius of service you are interested in',
-	    	value: null
-    	},
+    	{ name: 'test', value: 'test' }
     ];
     $scope.compensationTypeOptions = [
-    	{
-	    	name: 'Type of compensation',
-	    	value: null
-    	},
+    	{ name: 'test', value: 'test' }
     ];
     $scope.submit = function() {
-    	
     	$scope.processing = true;
 		var myDataRef = new Firebase('https://popping-fire-2842.firebaseio.com/registrations');
-	    myDataRef.push($scope.form);
-	    
+		//console.log($scope.form);
+	    myDataRef.push($scope.form,function(e){
+	    	if(e === null){
+	    		alert("Added to Firebase successfully");
+	    	}
+	    	else{
+	    		alert("Error adding to Firebase");
+	    		console.log(e);
+	    	}
+	    });	    
 	};
   }]);

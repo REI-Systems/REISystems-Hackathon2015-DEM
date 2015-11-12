@@ -1,52 +1,58 @@
 <h1>Registration</h1>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident voluptatibus veniam ipsum minus aperiam ut dicta. Vel veritatis, at molestiae ea, voluptatem quam non hic dolorem excepturi iure numquam magnam!</p>
-<form id="registration" ng-submit="submit()">
+<form name="registrationForm" id="registration" ng-submit="submit()">
 <div>	
 	<h2>Business Information</h2>
 	<div class="left">
-		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Business Name">
-		<input ng-model="form.phone" type="text" id="phoneNumber" placeholder="Contact Info: Phone Number">
-		<input ng-model="form.email" type="email" id="email" placeholder="Contact Info: Email">
+		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Business Name" required>
+		<input ng-model="form.phone" type="text" id="phoneNumber" placeholder="Contact Info: Phone Number" required>
+		<input ng-model="form.email" type="email" id="email" placeholder="Contact Info: Email" required>
 	</div>
 
 	<div class="right">
-		<input ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #">
+		<input ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #" required>
 		<div>
-			<select ng-init="form.state = stateOptions[0].value" 
-			ng-model="form.state" 
-			ng-options="option.value as option.name for option in stateOptions">
+			<select name="formState" ng-model="form.state" 
+			ng-options="option.value as option.name for option in stateOptions" required>
+				<option value="">State</option> 
 			</select>
-			<input ng-model="form.zip" type="text" id="zip" placeholder="Zip Code">
+			<span class="error" ng-show="registrationForm.formState.$dirty && registrationForm.formState.$invalid">Select a State</span>
+			<input ng-model="form.zip" type="text" id="zip" placeholder="Zip Code" required>
 		</div>
-		<select ng-init="form.disasterParticipation = disasterParticipationOptions[0].value" 
-		ng-model="form.disasterParticipation"
+		<select name="formDisasterParticipation" ng-model="form.disasterParticipation"
 		ng-options="option.value as option.name for option in disasterParticipationOptions">
+			<option value="">Disasters You Participated in</option>
 		</select>
+		<span class="error" ng-show="registrationForm.formDisasterParticipation.$dirty && registrationForm.formDisasterParticipation.$invalid">Select an option</span>
 	</div>
 </div>
 <div>
 	<h2>Assistance Preferences</h2>
 	<div class="left">
-		<select ng-init="form.assistanceInterest = assistanceInterestOptions[0].value" 
-		ng-model="form.assistanceInterest"
+		<select name="formAssistanceInterest" ng-model="form.assistanceInterest"
 		ng-options="option.value as option.name for option in assistanceInterestOptions">
+			<option value="">Type of Assistance you are interested in</option>
 		</select>
-		<select ng-init="form.disasterInterest = disasterInterestOptions[0].value"
-		ng-model="form.disasterInterest"
+		<span class="error" ng-show="registrationForm.formAssistanceInterest.$dirty && registrationForm.formAssistanceInterest.$invalid">Select an option</span>
+		<select name="formDisasterInterest" ng-model="form.disasterInterest"
 		ng-options="option.value as option.name for option in disasterInterestOptions">
+			<option value="">Type of Disaster you are interested in</option>
 		</select>
+		<span class="error" ng-show="registrationForm.formDisasterInterest.$dirty && registrationForm.formDisasterInterest.$invalid">Select an option</span>
 	</div>
 
 	<div class="right">
-		<select ng-init="form.serviceInterest = serviceInterestOptions[0].value"
-		ng-model="form.serviceInterest"
+		<select name="formServiceInterest" ng-model="form.serviceInterest"
 		ng-options="option.value as option.name for option in serviceInterestOptions">
+			<option value="">Radius of service you are interested in</option>
 		</select>
-		<select ng-init="form.compensationType = compensationTypeOptions[0].value"
-		ng-model="form.compensationType"
+		<span class="error" ng-show="registrationForm.formServiceInterest.$dirty && registrationForm.formServiceInterest.$invalid">Select an option</span>
+		<select name="formCompensationType" ng-model="form.compensationType"
 		ng-options="option.value as option.name for option in compensationTypeOptions">
+			<option value="">Type of compensation</option>
 		</select>
+		<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
 	</div>
 </div>
 
