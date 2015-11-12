@@ -30,7 +30,8 @@
     "jshint-stylish": "^1.0.0",
     "grunt-karma": "^0.12.1",
     "karma-phantomjs-launcher": "^0.2.1",
-    "karma-jasmine": "^0.3.6"
+    "karma-jasmine": "^0.3.6",
+    "grunt-include-source": "*"
   },
   "engines": {
     "node": ">=0.10.0"
