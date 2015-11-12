@@ -1,5 +1,7 @@
 [![Circle CI](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM.svg?style=svg)](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM)
 
+[![Code Climate](https://codeclimate.com/repos/5644bb351787d75306005704/badges/b5bd2cbc12d329bf318b/gpa.svg)](https://codeclimate.com/repos/5644bb351787d75306005704/feed)
+
 ## Install Environment:
 ####Requirements
 You need to have vagrant installed https://www.vagrantup.com/downloads.html, then install these following tools:
@@ -12,7 +14,7 @@ $ vagrant plugin install vagrant-vbguest
 Run command lines in order to set up the project in your machine :
 
 <pre>
-$ git clone -b develop https://github.com/JihadMotii-REISys/hat-2015.git
+$ git clone -b develop https://github.com/REI-Systems/REISystems-Hackathon2015-DEM.git
 $ cd REISystems-Hackathon2015-DEM/conf/vagrant
 $ vagrant up
 $ vagrant provision --provision-with shell   #sync your local environment with updated dev dependencies
