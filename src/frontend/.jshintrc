@@ -12,10 +12,5 @@
   "unused": true,
   "globals": {
     "angular": false
-  },
-  "jshint_options": {
-    "predef": {
-      "Firebase": false
-    }
   }
 }
