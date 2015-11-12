@@ -1,0 +1,4 @@
+conf/vagrant/.vagrant
+src/frontend/bower_components
+src/frontend/node_modules
+npm-debug.log

@@ -1,0 +1,32 @@
+machine:
+    services:
+        - docker
+    node:
+        version: v4.2.1
+
+dependencies:
+    cache_directories:
+        - ./src/frontend/node_modules
+        - ./src/frontend/bower_components
+        - /home/ubuntu/nvm/versions/node/v4.2.1/lib/node_modules
+    override:
+        #RUN TEST IN CIRCLECI WITHIN CONTAINER -> As of now, PhantomJS Hangs in CircleCI
+        #- sudo pip install --upgrade docker-compose==1.5.0
+        - npm install -g bower
+        - npm install -g karma
+        - npm install -g grunt-cli
+        - cd ./src/frontend && npm install && bower install
+
+test:
+    override:
+        #RUN TEST IN CIRCLECI WITHOUT CONTAINER
+        - cd ./src/frontend && grunt test
+        #RUN TEST IN CIRCLECI WITHIN CONTAINER -> As of now, PhantomJS Hangs in CircleCI
+        #- sh ./scripts/docker/run-tests.sh
+
+deployment:
+    hub:
+        #Deploy to tutum only if CircleCi got kicked from Master branch from Github
+        branch: master
+        commands:
+            - sh ./scripts/docker/build.sh

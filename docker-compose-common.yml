@@ -1,0 +1,10 @@
+frontend:
+    #this will build it from src/frontend/Dockerfile
+    build: ./src/frontend
+    ports:
+        - "80:9000"
+    volumes:
+        - "./src/frontend:/var/www/app"
+    working_dir: "/var/www/app"
+    expose:
+        - 9000

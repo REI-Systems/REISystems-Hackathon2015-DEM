@@ -1,0 +1,9 @@
+frontend:
+    extends:
+        file: docker-compose-common.yml
+        service: frontend
+    ports:
+        - "35729:35729"
+    expose:
+        - 35729
+    command: grunt serve

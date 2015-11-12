@@ -1,0 +1,11 @@
+frontend:
+    extends:
+        file: docker-compose-common.yml
+        service: frontend
+    ports:
+        - "9001:9001"
+        - "8080:8080"
+    expose:
+        - 9001
+        - 8080
+    command: grunt test
