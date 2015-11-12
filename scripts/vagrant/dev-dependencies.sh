@@ -103,10 +103,6 @@ cd /var/www/hat-2015/src/frontend
 su vagrant -c "npm install"
 su vagrant -c "bower install"
 
-#echo "Install all dev dependencies -= BACKEND =-"
-#cd /var/www/hat-2015/src/backend/app
-#su vagrant -c "npm install"
-
 echo "Opening port for dev ..."
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 9000 -j ACCEPT
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 35729 -j ACCEPT
