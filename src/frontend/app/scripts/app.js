@@ -21,7 +21,7 @@ var app = angular
     'ngMaterial',
     'firebase'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -41,4 +41,4 @@ var app = angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);
