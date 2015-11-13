@@ -10,7 +10,7 @@
 app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, $log) {
     //list of APIs we're using
     var APIs = {
-        "noaa": "http://alerts.weather.gov/cap/us.php"
+        "noaa": "https://cx0kmi7urj.execute-api.us-east-1.amazonaws.com/prod/forecasts",
     };
 
     this.APIs = APIs;
@@ -25,6 +25,7 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
      */
     this.call = function(ApiName, ApiSuffix, oParams) {
         var deferred = $q.defer();
+
         $http.get(APIs[ApiName] + ApiSuffix, {params: oParams})
             .success(function(data) { 
                 deferred.resolve(data);
@@ -35,5 +36,4 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
 
         return deferred.promise;
     };
-    
 }]);
