@@ -242,7 +242,6 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      //html: '<%= yeoman.app %>/index.html',
         html: '.tmp/index.html', //important to read from .tmp after include-source add js/css
       options: {
         dest: '<%= yeoman.dist %>',
@@ -449,7 +448,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
             //important to write index.html into .tmp after include-source add js/css
-          '<%= yoeman.dist %>/index.html': '.tmp/index.html'
+          '<%= yeoman.dist %>/index.html': '.tmp/index.html'
         }
       }
     }
@@ -498,6 +497,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'includeSource:dist',
     'cdnify',
     'cssmin',
     'uglify',
