@@ -15,5 +15,14 @@ angular.module('frontendApp')
       'Karma'
     ];
     
+    ApiInterfaceService.call('noaa', '', {'x': 1}).then(
+    function(data){
+        console.log(data);
+        },
+    function(error) {
+        console.log(error);
+        }
+    );
+    
     $scope.test = 'Hey !!';
   }]);

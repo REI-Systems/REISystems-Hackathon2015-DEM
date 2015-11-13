@@ -10,10 +10,10 @@
 app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, $log) {
     //list of APIs we're using
     var APIs = {
-        "API_NAME1": "http://blabla.com",
-        "API_NAME2": "http://blabla.com",
-        "API_NAME3": "http://blabla.com"
+        "noaa": "http://alerts.weather.gov/cap/us.php"
     };
+
+    this.APIs = APIs;
 
     /**
      * common function to perform an API CALL
@@ -23,7 +23,7 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
      * @param Object JSON oParams
      * @returns {$q@call;defer.promise}
      */
-    var call = function(ApiName, ApiSuffix, oParams) {
+    this.call = function(ApiName, ApiSuffix, oParams) {
         var deferred = $q.defer();
         $http.get(APIs[ApiName] + ApiSuffix, {params: oParams})
             .success(function(data) { 
