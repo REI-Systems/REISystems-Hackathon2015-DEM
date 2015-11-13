@@ -1,4 +1,3 @@
-
 'use strict';
 
 /**
@@ -9,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$scope',function ($scope) {
+  .controller('RegistrationCtrl', ['$scope','firebaseFactory',function ($scope,firebaseFactory) {
     $scope.form = {};
     $scope.processing = false;
     $scope.stateOptions = [
@@ -35,16 +34,6 @@ angular.module('frontendApp')
     ];
     $scope.submit = function() {
     	$scope.processing = true;
-		var myDataRef = new Firebase('https://popping-fire-2842.firebaseio.com/registrations');
-		//console.log($scope.form);
-	    myDataRef.push($scope.form,function(e){
-	    	if(e === null){
-	    		alert("Added to Firebase successfully");
-	    	}
-	    	else{
-	    		alert("Error adding to Firebase");
-	    		console.log(e);
-	    	}
-	    });	    
+		firebaseFactory.addItem($scope.form); 
 	};
   }]);
