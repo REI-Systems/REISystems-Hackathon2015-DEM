@@ -64,6 +64,10 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      includeSource: {
+        files: ['<%= yeoman.app %>/index.html'],
+        tasks: ['includeSource:server']
       }
     },
 
@@ -238,7 +242,8 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      //html: '<%= yeoman.app %>/index.html',
+        html: '.tmp/index.html', //important to read from .tmp after include-source add js/css
       options: {
         dest: '<%= yeoman.dist %>',
         flow: {
@@ -423,6 +428,30 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+    //Parse index.html and load dynamically assets (JS/CSS) into generated index.html page
+    includeSource: {
+      options: {
+        basePath: 'app',
+        baseUrl: '/',
+        templates: {
+          html: {
+            js: '<script src="{filePath}"></script>',
+            css: '<link rel="stylesheet" type="text/css" href="{filePath}" />',
+          }
+        }
+      },
+      server: {
+        files: {
+          '.tmp/index.html': '<%= yeoman.app %>/index.html'
+        }
+      },
+      dist: {
+        files: {
+            //important to write index.html into .tmp after include-source add js/css
+          '<%= yoeman.dist %>/index.html': '.tmp/index.html'
+        }
+      }
     }
   });
 
@@ -435,6 +464,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'includeSource:server',
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
@@ -450,6 +480,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'wiredep',
+    'includeSource:server',
     'concurrent:test',
     'postcss',
     'connect:test',
@@ -459,6 +490,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'includeSource:server',
     'useminPrepare',
     'concurrent:dist',
     'postcss',

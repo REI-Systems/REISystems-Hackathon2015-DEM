@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('frontendApp', [
     'ngAnimate',
     'ngAria',
@@ -17,7 +17,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngMaterial',
+    'firebase'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -30,6 +32,11 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/registration', {
+        templateUrl: 'views/registration.html',
+        controller: 'RegistrationCtrl',
+        controllerAs: 'registration'
       })
       .otherwise({
         redirectTo: '/'
