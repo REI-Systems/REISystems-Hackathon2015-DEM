@@ -7,11 +7,10 @@
  * # AboutCtrl
  * Controller of the frontendApp
  */
-angular.module('frontendApp')
-  .controller('AboutCtrl', function () {
+app.controller('AboutCtrl', [function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);
