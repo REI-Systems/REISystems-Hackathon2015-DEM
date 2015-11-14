@@ -63,6 +63,7 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
             },
             function(errors) {
                 deferred.reject(errors);
+                $log.error(errors);
             },
             function(updates) {
                 deferred.update(updates);
