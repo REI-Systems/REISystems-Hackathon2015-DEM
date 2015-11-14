@@ -42,9 +42,9 @@
         <li id="news-feeds-item-{{$index}}" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
             <div class="layer">
                 <span>
-                    <h4><a href="{{item.link}}" target="_blank">{{item.title}}</a></h4>
+                    <h4><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h4>
                 </span>
-                <span>{{item.description|htmlToPlaintext|cut:true:200}}</span>
+                <span ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></span>
             </div>
         </li>
     </ul>
