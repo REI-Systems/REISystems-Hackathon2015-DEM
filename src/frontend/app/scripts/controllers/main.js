@@ -174,10 +174,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         angular.forEach(demVolData, function(row){
             angular.forEach(usGeoData, function(oGeoLoc){
                if(row.state === oGeoLoc.name) {
-                   var dataTmp = {
-                            name: row.businessName,
-                            service: row.assistanceInterest
-                        };
+                   var dataTmp = row;
 
                    if(aVolunteersTmp.hasOwnProperty(row.state)) { //exist
                         aVolunteersTmp[row.state].data.push(dataTmp);
@@ -201,12 +198,14 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                 var html = '<div class="hoverinfo"><h4>Volunteer</h4>';
 
                 angular.forEach(data.data, function(row){
-                    html += '<p><b>Name</b>: '+row.name+ '<br />';
-                    html += '<b>Service</b>: '+row.service+ '</p>';
+                    html += '<p><b>Name</b>: '+row.businessName+ '<br />';
+                    html += '<b>Address</b>: '+row.address+ ',' + row.state + ' ' + row.zip +'<br />';
+                    html += '<b>Contact</b>: '+row.email+ ' / ' + row.phone +'<br />';
+                    html += '<b>Service</b>: '+row.assistanceInterest+ '</p>';
                 });
 
                 html += '</div>';
-    
+
                 return html;
             }
         });
