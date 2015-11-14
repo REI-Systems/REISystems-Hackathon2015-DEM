@@ -102,7 +102,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     "disasterType": row.incidentType,
                     "date": {
                         "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss', true),
-                        "end": ""
+                        "end": null
                     }
                 };
 
@@ -148,7 +148,11 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             angular.forEach(data.data, function(row){
                                 html +='<p><b>Disaster Name</b>: '+ row.disasterName +'<br />';
                                 html +='<b>Disaster Type</b>: '+ row.disasterType +'<br />';
-                                html +='<b>Disaster Date</b>: '+ row.date.start +'</p>';
+                                html +='<b>Disaster Date</b>: '+ row.date.start +'';
+                                if(typeof row.date.end !== 'undefined' && row.date.end !== null) {
+                                    html +='<br /><b>Disaster Date End</b>: '+ row.date.end;
+                                }
+                                html +='</p>';
                             });
                         }
 
