@@ -1,35 +1,15 @@
 <div id="container" style="position: relative; width: 700px; height: 350px;"></div>
 
-<div class="jumbotron">
-  <h1>FEMA</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
 
-<div class="row marketing">
-    {{test}}
-  <h4>HTML5 Boilerplate</h4>
-
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna elit,
-    pretium id nisi id, molestie condimentum justo. Aliquam fermentum,
-    ex nec ullamcorper porta, elit tortor fringilla turpis, eget facilisis massa
-    lorem ut purus. Aenean nisl orci, porttitor in dictum a, porta in dolor.
-    Nulla nunc sapien, maximus quis faucibus ac, elementum vel lacus.
-    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-    turpis egestas. Aliquam sit amet vehicula ipsum. Donec et faucibus augue.
-  </p>
-
-  <md-button class="md-raised md-primary">Primary</md-button>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div id="news-container" style="clear:both; margin: 10px;">
+    <ul rn-carousel class="image" rn-carousel-transition="hexagon" rn-carousel-controls style="height: 200px !important;">
+        <li id="news-feeds-item-{{$index}}" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
+            <div class="layer">
+                <span>
+                    <h4><a href="{{item.link}}" target="_blank">{{item.title}}</a></h4>
+                </span>
+                <span>{{item.description|htmlToPlaintext|cut:true:200}}</span>
+            </div>
+        </li>
+    </ul>
 </div>

@@ -19,7 +19,8 @@
     "topojson": "*",
     "datamaps": "*",
     "moment": "*",
-    "angular-spinner": "*"
+    "angular-spinner": "*",
+    "angular-carousel":"*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

@@ -200,9 +200,8 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
     });
 
 
-    /// YADITI EXAMPLE
-    //Google news by state
-    var oGnParam = {
+    //Google news api params
+    /*var oGnParam = {
         "q":"fema disaster VIRGINIA",
         "rsz": 8
     };
@@ -213,7 +212,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         console.log(data);
     }, function(error) { //error
         console.log("Error");
-    });
+    });*/
     
     //FEMA news REGION
     ApiInterfaceService.call('femaNews', '', {}).then(
@@ -221,9 +220,9 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         console.log("Fema news sample");
         //convert data from xml to json
         var x2js = new X2JS();
-        //console.log(resultls);
         var femaNewsData = x2js.xml_str2json( data );
-        console.log(femaNewsData);
+        $scope.femaNewsData = femaNewsData.rss.channel.item;
+        console.log(femaNewsData.rss.channel.item);
     }, function(error) { //error
         console.log("Error");
     });
