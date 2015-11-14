@@ -11,23 +11,34 @@ angular.module('frontendApp')
   .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService',function ($scope,firebaseFactory,ApiInterfaceService) {
     $scope.form = {};
     $scope.processing = false;
-    $scope.stateOptions = [
-		{
-	    	name: 'Virginia',
-	    	value: 'VA'
-    	}
-    ];
-    $scope.disasterParticipationOptions = [
-    	{ name: 'test', value: 'test' }
-    ];
-    /*$scope.test = ApiInterfaceService.call('femaDisaster','',{'$select':'title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
-    $scope.test.then(function(greeting) {
-    	console.log(greeting);
+    $scope.stateOptions = [];
+    var states = ApiInterfaceService.call('usGeoloc','',{});
+    states.then(function(data){
+    	console.log(data);
+    	$scope.stateOptions = data;//console.log(data);
+    },function(reason){
+    	//todo
+    },function(update){
+    	//todo
+    });
+    var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
+    femaDisaster.then(function(data) {
+    	var reformattedArray = data.DisasterDeclarationsSummaries.map(function(obj){ 
+			var rObj = {};
+			rObj.id = obj.id;
+			rObj.title = obj.title;
+			rObj.incidentBeginDate = obj.incidentBeginDate;
+			var date = new Date(obj.incidentBeginDate);
+			rObj.optionText = date +" - "+obj.title;
+			return rObj;
+		});
+		//console.log(reformattedArray);
+		$scope.disasterParticipationOptions = reformattedArray;
 	}, function(reason) {
-		console.log(reason);
+		//console.log(reason);
 	}, function(update) {
-		console.log(update);
-	});*/
+		//console.log(update);
+	});
     $scope.assistanceInterestOptions = [
     	'Produce',
 		'Shelter',
