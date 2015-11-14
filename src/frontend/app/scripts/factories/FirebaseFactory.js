@@ -7,7 +7,7 @@
  * # firebaseFactory
  * Controller of the frontendApp
  */
-app.factory('firebaseFactory', function myService(){
+app.factory('firebaseFactory', ['$firebaseObject',function ($firebaseObject){
     var _url = 'https://popping-fire-2842.firebaseio.com/registrations';
     var _ref = new Firebase(_url);
     
@@ -25,6 +25,9 @@ app.factory('firebaseFactory', function myService(){
 		    		console.log(e);
 		    	}
 		    });
+        },
+        getData: function(){
+			return $firebaseObject(_ref);
         }
     };
-});
+}]);

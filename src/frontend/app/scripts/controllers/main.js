@@ -102,7 +102,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     "disasterType": row.incidentType,
                     "date": {
                         "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss', true),
-                        "end": ""
+                        "end": null
                     }
                 };
 
@@ -148,7 +148,11 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             angular.forEach(data.data, function(row){
                                 html +='<p><b>Disaster Name</b>: '+ row.disasterName +'<br />';
                                 html +='<b>Disaster Type</b>: '+ row.disasterType +'<br />';
-                                html +='<b>Disaster Date</b>: '+ row.date.start +'</p>';
+                                html +='<b>Disaster Date</b>: '+ row.date.start +'';
+                                if(typeof row.date.end !== 'undefined' && row.date.end !== null) {
+                                    html +='<br /><b>Disaster Date End</b>: '+ row.date.end;
+                                }
+                                html +='</p>';
                             });
                         }
 
@@ -194,6 +198,36 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
     function(error) {
         console.log(error);
     });
+
+
+    /// YADITI EXAMPLE
+    //Google news by state
+    var oGnParam = {
+        "q":"fema disaster VIRGINIA",
+        "rsz": 8
+    };
+
+    ApiInterfaceService.call('googleNews', '', oGnParam).then(
+    function(data){ //success
+        console.log("Google news sample by state")
+        console.log(data);
+    }, function(error) { //error
+        console.log("Error");
+    });
+    
+    //FEMA news REGION
+    ApiInterfaceService.call('femaNews', '', {}).then(
+    function(data){ //success
+        console.log("Fema news sample");
+        //convert data from xml to json
+        var x2js = new X2JS();
+        //console.log(resultls);
+        var femaNewsData = x2js.xml_str2json( data );
+        console.log(femaNewsData);
+    }, function(error) { //error
+        console.log("Error");
+    });
+    
 
     $scope.test = 'Hey !!';
 }]);
