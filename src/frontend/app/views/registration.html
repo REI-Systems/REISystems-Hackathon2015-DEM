@@ -31,7 +31,7 @@
 	<h2>Assistance Preferences</h2>
 	<div class="left">
 		<select name="formAssistanceInterest" ng-model="form.assistanceInterest"
-		ng-options="option.value as option.name for option in assistanceInterestOptions">
+		ng-options="option for option in assistanceInterestOptions">
 			<option value="">Type of Assistance you are interested in</option>
 		</select>
 		<span class="error" ng-show="registrationForm.formAssistanceInterest.$dirty && registrationForm.formAssistanceInterest.$invalid">Select an option</span>
@@ -49,7 +49,7 @@
 		</select>
 		<span class="error" ng-show="registrationForm.formServiceInterest.$dirty && registrationForm.formServiceInterest.$invalid">Select an option</span>
 		<select name="formCompensationType" ng-model="form.compensationType"
-		ng-options="option.value as option.name for option in compensationTypeOptions">
+		ng-options="option for option in compensationTypeOptions">
 			<option value="">Type of compensation</option>
 		</select>
 		<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
