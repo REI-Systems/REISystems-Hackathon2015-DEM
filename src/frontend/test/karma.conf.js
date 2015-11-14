@@ -35,6 +35,12 @@ module.exports = function(config) {
       'bower_components/angularfire/dist/angularfire.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/x2js/xml2json.min.js',
+      'bower_components/d3/d3.js',
+      'bower_components/topojson/topojson.js',
+      'bower_components/datamaps/dist/datamaps.all.js',
+      'bower_components/moment/moment.js',
+      'bower_components/spin.js/spin.js',
+      'bower_components/angular-spinner/angular-spinner.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
