@@ -1,4 +1,40 @@
-<div id="container" style="position: relative; width: 700px; height: 350px;"></div>
+<button ng-click="showList=false;">Map</button> - <button ng-click="showList=true;">List</button>
+
+<div id="container" style="position: relative; width: 700px; height: 350px;" ng-show="!showList"></div>
+
+<div ng-show="showList">
+    <select name="state" ng-model="selectedState" ng-options="option.name as option.state for option in aState"
+            ng-change="loadListByState(selectedState)">
+            <option value="">Please choose a State</option>
+    </select>
+    <span class="error" ng-show="selectedState.$dirty && selectedState.$invalid">Select an option</span>
+    
+    <div ng-show="selectedState">
+        <h4>Disasters</h4>
+        <div class="" ng-repeat="oStateDisaster in aStateDisasters.data">
+            <p><b>Disaster Name</b>: {{oStateDisaster.disasterName }}<br />
+            <b>Disaster Type</b>: {{oStateDisaster.disasterType }}<br />
+            <b>Disaster Date</b>: {{oStateDisaster.date.start }}
+            <span ng-show="oStateDisaster.date.end !== null;"><br /><b>Disaster Date End</b>: {{oStateDisaster.date.end }}</span>
+            </p>
+        </div>
+        <span ng-show="!aStateDisasters.data.length">No disaster found for this state.</span>
+    </div>
+    
+    <div ng-show="selectedState">
+        <h4>Volunteers</h4>
+        <div class="" ng-repeat="oStateVolunteer in aStateVolunteers.data">
+            <p>
+            <b>Name</b>: {{oStateVolunteer.businessName }}<br />
+            <b>Address</b>: {{oStateVolunteer.address }}, {{oStateVolunteer.state }} {{oStateVolunteer.zip }}<br />
+            <b>Contact</b>: {{oStateVolunteer.email }} / {{oStateVolunteer.phone }}<br />
+            <b>Service</b>: {{oStateVolunteer.assistanceInterest }}
+            </p>
+        </div>
+        <span ng-show="!aStateVolunteers.data.length">No volunteer found for this state.</span>
+    </div>
+    
+</div>
 
 
 <div id="news-container" style="clear:both; margin: 10px;">
