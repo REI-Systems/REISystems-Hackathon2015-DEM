@@ -14,7 +14,7 @@ angular.module('frontendApp')
     $scope.stateOptions = [];
     var states = ApiInterfaceService.call('usGeoloc','',{});
     states.then(function(data){
-    	console.log(data);
+    	//console.log(data);
     	$scope.stateOptions = data;//console.log(data);
     },function(reason){
     	//todo
