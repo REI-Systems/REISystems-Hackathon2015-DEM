@@ -211,6 +211,10 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             }
         });
 
+        $scope.aState = usGeoData;
+        $scope.aDisasters = aMapData;
+        $scope.aVolunteers = aVolunteersTmp;
+
         //draw a legend for this map
         map.labels();
         map.legend();
@@ -221,6 +225,17 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         console.log(error);
     });
 
+    //function to load list disasters/volunteer by state
+    $scope.loadListByState = function(state) {
+        console.log(state);
+        $scope.aStateDisasters = [];
+        $scope.aStateVolunteers = [];
+
+        if(state !== '') {
+            $scope.aStateDisasters = $scope.aDisasters[state];
+            $scope.aStateVolunteers = $scope.aVolunteers[state];
+        }
+    };
 
     /// YADITI EXAMPLE
     //Google news by state
