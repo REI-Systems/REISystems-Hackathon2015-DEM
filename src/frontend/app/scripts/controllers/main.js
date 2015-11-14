@@ -41,6 +41,10 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             }
         },
         {
+            "name": "demVolunteer",
+            "oParams": {}
+        },
+        {
             "name": "usGeoloc",
             "oParams": {}
         }
@@ -49,10 +53,10 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
     ApiInterfaceService.calls(apiCalls).then(
     function(resultls){
         var x2js = new X2JS();
-        //console.log(resultls);
         var noaaData = x2js.xml_str2json( resultls[0].data );
         var femaData = resultls[1].data;
-        var usGeoData = resultls[2].data;
+        var demVolData = resultls[2].data;
+        var usGeoData = resultls[3].data;
 
         var aMapData = {};
 
@@ -127,12 +131,6 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             });
         }
 
-//        console.log(aMapData);
-//        console.log(noaaData);
-//        console.log(femaData);
-//        console.log(usGeoData);
-
-
         var map = new Datamap({
             "element": document.getElementById('container'),
             "scope": 'usa',
@@ -171,21 +169,45 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             "data": aMapData,
         });
 
-        var bombs = [{
-            name: 'Joe 4',
-            radius: 8,
-            fillKey: 'Volunteer',
-            latitude: 37.7680,
-            longitude: -78.2057
-          }
-        ];
+        //Volunteers data
+        var aVolunteersTmp = {};
+        angular.forEach(demVolData, function(row){
+            angular.forEach(usGeoData, function(oGeoLoc){
+               if(row.state === oGeoLoc.name) {
+                   var dataTmp = {
+                            name: row.businessName,
+                            service: row.assistanceInterest
+                        };
 
-        //draw bubbles for bombs
-        map.bubbles(bombs, {
+                   if(aVolunteersTmp.hasOwnProperty(row.state)) { //exist
+                        aVolunteersTmp[row.state].data.push(dataTmp);
+                    } else { //new entry
+                        aVolunteersTmp[row.state] = {
+                            data: [dataTmp],
+                            state: row.state,
+                            radius: 8,
+                            fillKey: 'Volunteer',
+                            latitude: oGeoLoc.latitude,
+                            longitude: oGeoLoc.longitude
+                        };
+                    }
+                } 
+            });
+        });
+
+        //draw bubbles for Volunteers
+        map.bubbles(Object.keys(aVolunteersTmp).map(function(_) { return aVolunteersTmp[_]; }), {
             popupTemplate: function (geo, data) { 
-                return ['<div class="hoverinfo"><h4>Volunteer</h4><p>' +  data.name,
-                '</p>',
-                '</div>'].join('');
+                var html = '<div class="hoverinfo"><h4>Volunteer</h4>';
+
+                angular.forEach(data.data, function(row){
+                    html += '<p><b>Name</b>: '+row.name+ '<br />';
+                    html += '<b>Service</b>: '+row.service+ '</p>';
+                });
+
+                html += '</div>';
+    
+                return html;
             }
         });
 
@@ -214,7 +236,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
     }, function(error) { //error
         console.log("Error");
     });
-    
+
     //FEMA news REGION
     ApiInterfaceService.call('femaNews', '', {}).then(
     function(data){ //success
