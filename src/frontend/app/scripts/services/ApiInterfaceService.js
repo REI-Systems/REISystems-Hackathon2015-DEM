@@ -14,7 +14,8 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
         "usGeoloc": "/data/us-geoloc.json",
         "femaDisaster": "http://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries",
         "googleNews": "https://tar5pekho5.execute-api.us-east-1.amazonaws.com/prod/ga-fema-news-by-state",
-        "femaNews": "https://dm258ridhh.execute-api.us-east-1.amazonaws.com/prod/get-news"
+        "femaNews": "https://dm258ridhh.execute-api.us-east-1.amazonaws.com/prod/get-news",
+        "demVolunteer": "https://popping-fire-2842.firebaseio.com/registrations.json"
     };
 
     this.APIs = APIs;
@@ -62,6 +63,7 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
             },
             function(errors) {
                 deferred.reject(errors);
+                $log.error(errors);
             },
             function(updates) {
                 deferred.update(updates);
