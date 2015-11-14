@@ -199,5 +199,35 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         console.log(error);
     });
 
+
+    /// YADITI EXAMPLE
+    //Google news by state
+    var oGnParam = {
+        "q":"fema disaster VIRGINIA",
+        "rsz": 8
+    };
+
+    ApiInterfaceService.call('googleNews', '', oGnParam).then(
+    function(data){ //success
+        console.log("Google news sample by state")
+        console.log(data);
+    }, function(error) { //error
+        console.log("Error");
+    });
+    
+    //FEMA news REGION
+    ApiInterfaceService.call('femaNews', '', {}).then(
+    function(data){ //success
+        console.log("Fema news sample");
+        //convert data from xml to json
+        var x2js = new X2JS();
+        //console.log(resultls);
+        var femaNewsData = x2js.xml_str2json( data );
+        console.log(femaNewsData);
+    }, function(error) { //error
+        console.log("Error");
+    });
+    
+
     $scope.test = 'Hey !!';
 }]);

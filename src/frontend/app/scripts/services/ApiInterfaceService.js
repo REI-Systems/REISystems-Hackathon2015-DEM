@@ -12,7 +12,9 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
     var APIs = {
         "noaa": "https://cx0kmi7urj.execute-api.us-east-1.amazonaws.com/prod/forecasts",
         "usGeoloc": "/data/us-geoloc.json",
-        "femaDisaster": "http://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries"
+        "femaDisaster": "http://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries",
+        "googleNews": "https://tar5pekho5.execute-api.us-east-1.amazonaws.com/prod/ga-fema-news-by-state",
+        "femaNews": "https://dm258ridhh.execute-api.us-east-1.amazonaws.com/prod/get-news"
     };
 
     this.APIs = APIs;
