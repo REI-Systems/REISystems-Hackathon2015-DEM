@@ -19,7 +19,8 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'ngMaterial',
-    'firebase'
+    'firebase',
+    'angularSpinner'
   ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

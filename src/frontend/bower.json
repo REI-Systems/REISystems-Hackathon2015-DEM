@@ -18,7 +18,8 @@
     "d3": "*",
     "topojson": "*",
     "datamaps": "*",
-    "moment": "*"
+    "moment": "*",
+    "angular-spinner": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
