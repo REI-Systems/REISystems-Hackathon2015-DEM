@@ -30,13 +30,6 @@ angular.module('frontendApp')
 				return false;
 			}
 			else{
-				/*var rObj = {};
-				rObj.id = obj.id;
-				rObj.title = obj.title;
-				rObj.incidentBeginDate = obj.incidentBeginDate;
-				var date = new Date(obj.incidentBeginDate);
-				rObj.optionText = date +" - "+obj.title;
-				return rObj;*/
 				savedDisasterNumbers.push(obj.disasterNumber);
 				return true;
 			}
