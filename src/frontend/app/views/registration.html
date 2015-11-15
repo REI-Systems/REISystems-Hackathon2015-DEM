@@ -1,6 +1,7 @@
 <h1>Registration</h1>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident voluptatibus veniam ipsum minus aperiam ut dicta. Vel veritatis, at molestiae ea, voluptatem quam non hic dolorem excepturi iure numquam magnam!</p>
+<div>{{generalMessage}}</div>
 <form name="registrationForm" id="registration" form-submit="submit()" novalidate>
 <div>	
 	<h2>Business Information</h2>
@@ -12,8 +13,8 @@
 	</div>
 
 	<div class="right">
-		<input name="formAddress" ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #" integer required>
-		<span class="error" ng-show="(registrationForm.formAddress.$dirty && submitted) && registrationForm.formAddress.$error.integer">Invalid address!</span>
+		<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #" required>
+		<span class="error" ng-show="(registrationForm.formAddress.$dirty) && registrationForm.formAddress.$error.address">Invalid address!</span>
 		<div>
 			<select name="formState" ng-model="form.state" 
 			ng-options="option.name as option.state for option in stateOptions" required>

@@ -9,14 +9,14 @@
  */
 
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService',function ($scope,firebaseFactory,ApiInterfaceService) {
+  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService','$q',function ($scope,firebaseFactory,ApiInterfaceService,$q) {
+    $scope.generalMessage = "";
     $scope.form = {};
     $scope.processing = false;
     $scope.stateOptions = [];
     var states = ApiInterfaceService.call('usGeoloc','',{});
     states.then(function(data){
-    	//console.log(data);
-    	$scope.stateOptions = data;//console.log(data);
+    	$scope.stateOptions = data;
     },function(reason){
     	//todo
     },function(update){
@@ -95,13 +95,28 @@ angular.module('frontendApp')
 	};
 	$scope.validateAddress = function(){
 		//console.log('i made it here');
-		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address,components:'country:US'});
+		var deferred = $q.defer();
+		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address+", "+$scope.form.state,components:'country:US'});
 		googleMaps.then(function(data){
-	    	//console.log(data);
+	    	//console.log(data.results);
+	    	data.results.forEach(function(el,idx,arr){
+	    		if(typeof el.partial_match == "undefined"){
+	    			deferred.resolve(true);
+	    		}
+	    	});
+	    	deferred.resolve(false);
     	},function(reason){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
     		//console.log(reason);
+	    	deferred.reject('Error: couldn\'t validate address');
 	    },function(update){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
 	    	//console.log(update);
+	    	deferred.reject('Error: couldn\'t validate address');
 	    });
+	    return deferred.promise;
+	}
+	$scope.resetAddressValidation = function(){
+		$scope.registrationForm.formAddress.$setValidity('address', true);
 	}
   }]);

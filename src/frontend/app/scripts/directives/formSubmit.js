@@ -5,17 +5,33 @@ app.directive('formSubmit', function() {
     link: function ($scope, element, attrs, formCtrl) {
       element.on('submit', function() {
         //console.log('directive hit');
-        if($scope.validateAddress()){
-          formCtrl.$valid = false;
+        var res = $scope.validateAddress();
+        if(res){
+          //console.log(res);
+          res.then(function(resolve){
+            if(!resolve){
+
+              formCtrl.$valid = false;
+              $scope.generalMessage = "Invalid Address";
+              //$scope.registrationForm.formAddress.$error.address = true;
+              $scope.registrationForm.formAddress.$setValidity('address', false);
+              console.log($scope);//.registrationForm.formAddress);
+              //alert('invalid address');
+              //console.log($scope,formCtrl);
+            }
+            if (formCtrl.$valid) {
+              //console.log($scope);
+              $scope.submit();  
+            }
+            else {
+              // service to display invalid inputs
+              //console.log('invalid submission');
+            }
+          },function(reject){
+
+          });
         }
-        if (formCtrl.$valid) {
-          //console.log($scope);
-          $scope.submit();  
-        }
-        else {
-          // service to display invalid inputs
-          //console.log('invalid submission');
-        }
+        
       });
     }
   };
