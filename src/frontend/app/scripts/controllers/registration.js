@@ -99,7 +99,11 @@ angular.module('frontendApp')
     ];
     $scope.submit = function() {
     	$scope.processing = true;
-		firebaseFactory.addItem($scope.form); 
+    	var phone = $scope.form.phone;
+    	phone = phone.replace(/\D/g,'');
+    	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
+    	$scope.form.phone = phone;
+    	firebaseFactory.addItem($scope.form); 
 	};
 	$scope.validateAddress = function(){
 		var deferred = $q.defer();
