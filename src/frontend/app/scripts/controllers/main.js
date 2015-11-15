@@ -54,6 +54,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         var usGeoData = resultls[3].data;
 
         var aMapData = {};
+        var aDataUnique = [];
 
         //NOAA DATA (forecast)
         if(noaaData && noaaData.feed && noaaData.feed.entry) {
@@ -61,7 +62,10 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                 //filter NOAA forecast that we need to show on map
                 if(aNoaaEventType.indexOf(row.event.__text) !== -1) {
                     //make sure we have state
-                    if(row.geocode.value[1]){
+                    if(row.geocode.value[1] && aDataUnique.indexOf(row.title) === -1){
+                        //add entry title to aDataUnique
+                        aDataUnique.push(row.title);
+
                         var state = row.geocode.value[1].substr(0, 2);
                         var rowMap = {};
                         var mapData = {
@@ -91,37 +95,45 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             });
         }
 
+        //empty array of title for forecast
+        aDataUnique = [];
+
         //FEMA DATA (current disaster)
         if(femaData && femaData.DisasterDeclarationsSummaries) {
             angular.forEach(femaData.DisasterDeclarationsSummaries, function(row) {
-                var state = row.state;
-                var rowMap = {};
-                var mapData = {
-                    "disasterName": row.title,
-                    "disasterType": row.incidentType,
-                    "date": {
-                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
-                        "end": null
-                    }
-                };
+                if(aDataUnique.indexOf(row.title) === -1) {
+                    //add entry title to aDataUnique
+                    aDataUnique.push(row.title);
 
-                //Verify if we already have state in aMapData
-                if(aMapData.hasOwnProperty(state)) { //exist
-                    //change color state to (Forecast/Current)
-                    if(aMapData[state].fillKey && aMapData[state].fillKey === "Forecast") {
-                        aMapData[state].fillKey = "Current/Forecast";
-                    }
-
-                    //push data into existing state
-                    aMapData[state].data.push(mapData);
-                } else { //create state with data
-                    rowMap = {
-                    "fillKey": "Current",
-                    "data": [ mapData ]
+                    var state = row.state;
+                    var rowMap = {};
+                    var mapData = {
+                        "disasterName": row.title,
+                        "disasterType": row.incidentType,
+                        "date": {
+                            "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
+                            "end": null
+                        }
                     };
 
-                    //push this entry to global data container 
-                    aMapData[state] = rowMap;
+                    //Verify if we already have state in aMapData
+                    if(aMapData.hasOwnProperty(state)) { //exist
+                        //change color state to (Forecast/Current)
+                        if(aMapData[state].fillKey && aMapData[state].fillKey === "Forecast") {
+                            aMapData[state].fillKey = "Current/Forecast";
+                        }
+
+                        //push data into existing state
+                        aMapData[state].data.push(mapData);
+                    } else { //create state with data
+                        rowMap = {
+                        "fillKey": "Current",
+                        "data": [ mapData ]
+                        };
+
+                        //push this entry to global data container 
+                        aMapData[state] = rowMap;
+                    }
                 }
             });
         }
