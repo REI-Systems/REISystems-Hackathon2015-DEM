@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -17,6 +17,9 @@
     <!-- build:css({.tmp,app}) styles/styles.css -->
     <!-- include: "type": "css", "files": "styles/*.css" -->
     <!-- endbuild -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
   </head>
   <body ng-app="frontendApp">
     <!--[if lte IE 8]>
@@ -24,46 +27,80 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
+    <md-toolbar ng-controller="NavCtrl">
 
-            <a class="navbar-brand" href="#/">frontend</a>
+      <div class="md-toolbar-tools">
+        <md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-md>
+          <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+        </md-button>
+        <h2><span>FEMA</span></h2>
+      </div>
+
+    </md-toolbar>
+
+    <div ng-controller="NavCtrl" layout-fill layout="row" ng-cloak>
+
+      <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+
+        <md-content ng-controller="LeftCtrl">
+
+          <md-list ng-cloak>
+
+            <md-list-item ng-click="navigateTo('home', $event)">
+              <md-icon aria-label="Home" class="material-icons">home</md-icon>
+              <p>Home</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="navigateTo('about', $event)">
+              <md-icon aria-label="About" class="material-icons">info</md-icon>
+              <p>About</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="navigateTo('contact', $event)">
+              <md-icon aria-label="About" class="material-icons">contact_phone</md-icon>
+              <p>Contact</p>
+            </md-list-item>
+
+          </md-list>
+
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#/">Home</a></li>
+            <li><a ng-href="#/about">About</a></li>
+            <li><a ng-href="#/">Contact</a></li>
+            <li><a ng-href="#/">Hi~~</a></li>
+            <li><a ng-href="#/registration">Hi2~~</a></li>
+          </ul>
+
+
+          <md-button ng-click="close()" class="md-primary" hide-gt-md>
+            Close Sidenav Left
+          </md-button>
+
+        </md-content>
+      </md-sidenav>
+
+      <md-content layout-fill>
+
+        <div layout="column" layout-padding>
+
+
+
+          <div ng-view=""></div>
+          <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner"></span>
+
+          <div>
+            <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+              Toggle left
+            </md-button>
           </div>
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-              <li><a ng-href="#/">Hi~~</a></li>
-              <li><a ng-href="#/registration">Hi2~~</a></li>
-            </ul>
-          </div>
         </div>
-      </div>
+      </md-content>
+
     </div>
 
-    <div class="container">
-    <div ng-view=""></div>
-    </div>
 
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
-
-    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner"></span>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>

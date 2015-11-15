@@ -68,8 +68,8 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             "disasterName": row.title,
                             "disasterType": row.event.__text,
                             "date": {
-                                "start": moment.utc(row.effective.__text, 'YYYY-MM-DD H:m:ss', true),
-                                "end": moment.utc(row.expires.__text, 'YYYY-MM-DD H:m:ss', true)
+                                "start": moment.utc(row.effective.__text, 'YYYY-MM-DD H:m:ss').format('LLLL'),
+                                "end": moment.utc(row.expires.__text, 'YYYY-MM-DD H:m:ss').format('LLLL')
                             }
                         };
 
@@ -100,7 +100,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     "disasterName": row.title,
                     "disasterType": row.incidentType,
                     "date": {
-                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss', true),
+                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
                         "end": null
                     }
                 };
@@ -150,7 +150,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                         html += '</div>'
                     return html;
                 },
-                //highlightBorderWidth: 3
+                highlightBorderWidth: 0.5
             },
             "fills": {
                 "Forecast": '#ccccff',
@@ -165,7 +165,14 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     //load fema news by state
                     $scope.loadFemaNewsByState(geography.properties.name);
                 });
+
+                datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 5]).on("zoom", redraw));
+
+                function redraw() {
+                    datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                }
             }
+            //,"responsive": true
         });
 
         //Volunteers data
@@ -194,7 +201,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         //draw bubbles for Volunteers
         map.bubbles(Object.keys(aVolunteersTmp).map(function(_) { return aVolunteersTmp[_]; }), {
             popupTemplate: function (geo, data) { 
-                var html = '<div class="hoverinfo"><h4>Volunteer</h4>';
+                var html = '<div class="hoverinfo"><h4>Volunteers</h4>';
 
                 angular.forEach(data.data, function(row){
                     html += '<p><b>Name</b>: '+row.businessName+ '<br />';
@@ -232,23 +239,33 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         $scope.aStateDisasters = [];
         $scope.aStateVolunteers = [];
 
-        if(state !== '') {
+        if(state !== '' && state !== null) {
             $scope.aStateDisasters = $scope.aDisasters[state];
             $scope.aStateVolunteers = $scope.aVolunteers[state];
+            //load fema news by state
+            $scope.loadFemaNewsByState(state);
+        } else {
+            //load fema news region
+            $scope.loadFemaNewsRegion();
         }
     };
 
-    //FEMA news region
-    ApiInterfaceService.call('femaNews', '', {}).then(
-        function(data){ //success
-            var x2js = new X2JS();
-            var femaNewsData = x2js.xml_str2json( data );
-            $scope.femaNewsData = femaNewsData.rss.channel.item;
-        }, 
-        function(error) { //error
-            console.log(error);
-        }
-    );
+    /**
+     * FEMA news region
+     * @returns Void()
+     */
+    $scope.loadFemaNewsRegion = function() {
+        ApiInterfaceService.call('femaNews', '', {}).then(
+            function(data){ //success
+                var x2js = new X2JS();
+                var femaNewsData = x2js.xml_str2json( data );
+                $scope.femaNewsData = femaNewsData.rss.channel.item;
+            }, 
+            function(error) { //error
+                console.log(error);
+            }
+        );
+    }
 
     /**
      * load fema news by state using Amazon Gateway API (to call google api - CORS work around)
@@ -281,4 +298,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             console.log(error);
         });
     };
+
+    //load fema region news
+    $scope.loadFemaNewsRegion();
 }]);
