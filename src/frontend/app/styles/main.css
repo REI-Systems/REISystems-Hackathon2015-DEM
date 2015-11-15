@@ -7,3 +7,16 @@
 button, select, html, textarea, input {
   font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
 }
+
+
+
+/* Material Chips
+   ========================================================================== */
+/**
+ * Remove box shadow and vertical align center
+ */
+
+md-chips.md-default-theme, md-chips .md-chips {
+	box-shadow: none;
+	margin-top: 10px;
+}

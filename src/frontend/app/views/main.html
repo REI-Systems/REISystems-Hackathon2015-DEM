@@ -1,40 +1,82 @@
-<button ng-click="showList=false;">Map</button> - <button ng-click="showList=true;">List</button>
 
-<div id="container" style="position: relative; width: 700px; height: 350px;" ng-show="!showList"></div>
+<div ng-cloak>
+  <md-content>
+    <md-tabs class="md-accent" md-dynamic-height md-border-bottom>
+      <md-tab label="Map">
+        <md-content>
+          <h1 class="md-display-1">Disaster Map</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
+            ante augue. Phasellus volutpat neque ac dui mattis vulputate.
+            Etiam consequat aliquam cursus. In sodales pretium ultrices.
+            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
+          </p>
+          <div id="container" style="position: relative; width: 700px; height: 350px;" ng-show="!showList"></div>
+        </md-content>
+      </md-tab>
+      <md-tab label="List">
+        <md-content>
+          <h1 class="md-display-1">Disaster List</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
+            ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat
+            aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin
+            consectetur felis nec, feugiat ultricies mi.
+          </p>
 
-<div ng-show="showList">
-    <select name="state" ng-model="selectedState" ng-options="option.name as option.state for option in aState"
-            ng-change="loadListByState(selectedState)">
-            <option value="">Please choose a State</option>
-    </select>
-    <span class="error" ng-show="selectedState.$dirty && selectedState.$invalid">Select an option</span>
-    
-    <div ng-show="selectedState">
-        <h4>Disasters</h4>
-        <div class="" ng-repeat="oStateDisaster in aStateDisasters.data">
-            <p><b>Disaster Name</b>: {{oStateDisaster.disasterName }}<br />
-            <b>Disaster Type</b>: {{oStateDisaster.disasterType }}<br />
-            <b>Disaster Date</b>: {{oStateDisaster.date.start }}
-            <span ng-show="oStateDisaster.date.end !== null;"><br /><b>Disaster Date End</b>: {{oStateDisaster.date.end }}</span>
-            </p>
-        </div>
-        <span ng-show="!aStateDisasters.data.length">No disaster found for this state.</span>
-    </div>
-    
-    <div ng-show="selectedState">
-        <h4>Volunteers</h4>
-        <div class="" ng-repeat="oStateVolunteer in aStateVolunteers.data">
-            <p>
-            <b>Name</b>: {{oStateVolunteer.businessName }}<br />
-            <b>Address</b>: {{oStateVolunteer.address }}, {{oStateVolunteer.state }} {{oStateVolunteer.zip }}<br />
-            <b>Contact</b>: {{oStateVolunteer.email }} / {{oStateVolunteer.phone }}<br />
-            <b>Service</b>: {{oStateVolunteer.assistanceInterest }}
-            </p>
-        </div>
-        <span ng-show="!aStateVolunteers.data.length">No volunteer found for this state.</span>
-    </div>
-    
+          <md-input-container>
+            <md-select ng-model="selectedState" placeholder="Select a state" ng-change="loadListByState(selectedState)">
+              <md-option ng-value="state.name" ng-repeat="state in aState">{{ state.state }}</md-option>
+            </md-select>
+          </md-input-container>
+
+          <div ng-show="selectedState">
+
+            <md-subheader class="md-no-sticky">Disasters</md-subheader>
+            <md-list-item class="md-2-line" ng-repeat="oStateDisaster in aStateDisasters.data">
+              <div layout="column" class="md-list-item-text">
+
+                <h3>{{oStateDisaster.disasterName }}</h3>
+                <p>
+                  Disaster Date: {{oStateDisaster.date.start }}
+                  <span ng-show="oStateDisaster.date.end !== null;">| Disaster Date End: {{oStateDisaster.date.end }}</span>
+                </p>
+
+              </div>
+
+              <md-chips layout="row" layout-align="end end">
+                <md-chip>{{oStateDisaster.disasterType }}</md-chip>
+              </md-chips>
+              <md-divider ></md-divider>
+            </md-list-item>
+
+            <md-list-item ng-show="!aStateDisasters.data.length">
+              <h3>No disaster found for this state.</h3>
+            </md-list-item>
+
+          </div>
+
+          <div ng-show="selectedState">
+            <md-subheader class="md-no-sticky">Volunteers</md-subheader>
+            <md-list-item class="md-3-line" ng-repeat="oStateVolunteer in aStateVolunteers.data">
+              <div class="md-list-item-text" layout="column">
+                <h3>{{oStateVolunteer.businessName }} ({{oStateVolunteer.assistanceInterest }})</h3>
+                <h4>{{oStateVolunteer.address }}, {{oStateVolunteer.state }} {{oStateVolunteer.zip }}</h4>
+                <p>{{oStateVolunteer.email }} / {{oStateVolunteer.phone }}</p>
+              </div>
+              <md-divider ></md-divider>
+            </md-list-item>
+            <md-list-item ng-show="!aStateVolunteers.data.length">
+              <h3>No volunteer found for this state.</h3>
+            </md-list-item>
+          </div>
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
 </div>
+
 
 
 <div id="news-container" style="clear:both; margin: 10px;">
