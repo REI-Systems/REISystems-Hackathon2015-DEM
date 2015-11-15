@@ -68,8 +68,8 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             "disasterName": row.title,
                             "disasterType": row.event.__text,
                             "date": {
-                                "start": moment.utc(row.effective.__text, 'YYYY-MM-DD H:m:ss', true),
-                                "end": moment.utc(row.expires.__text, 'YYYY-MM-DD H:m:ss', true)
+                                "start": moment.utc(row.effective.__text, 'YYYY-MM-DD H:m:ss').format('LLLL'),
+                                "end": moment.utc(row.expires.__text, 'YYYY-MM-DD H:m:ss').format('LLLL')
                             }
                         };
 
@@ -100,7 +100,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     "disasterName": row.title,
                     "disasterType": row.incidentType,
                     "date": {
-                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss', true),
+                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
                         "end": null
                     }
                 };
@@ -194,7 +194,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         //draw bubbles for Volunteers
         map.bubbles(Object.keys(aVolunteersTmp).map(function(_) { return aVolunteersTmp[_]; }), {
             popupTemplate: function (geo, data) { 
-                var html = '<div class="hoverinfo"><h4>Volunteer</h4>';
+                var html = '<div class="hoverinfo"><h4>Volunteers</h4>';
 
                 angular.forEach(data.data, function(row){
                     html += '<p><b>Name</b>: '+row.businessName+ '<br />';
