@@ -111,7 +111,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                         "disasterName": row.title,
                         "disasterType": row.incidentType,
                         "date": {
-                            "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
+                            "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LL'),
                             "end": null
                         }
                     };
