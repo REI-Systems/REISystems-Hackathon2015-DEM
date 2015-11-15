@@ -11,12 +11,6 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
     //show spin
     usSpinnerService.spin('spinner');
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     //define Noaa event type to show on map
     var aNoaaEventType = ['Earthquake Warning', 'Evacuation Immediate', 
         'Extreme Fire Danger', 'Fire Warning', 'Fire Weather Watch', 'Flood Warning', 
