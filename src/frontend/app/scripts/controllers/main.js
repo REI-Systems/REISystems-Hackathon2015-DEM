@@ -232,23 +232,33 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         $scope.aStateDisasters = [];
         $scope.aStateVolunteers = [];
 
-        if(state !== '') {
+        if(state !== '' && state !== null) {
             $scope.aStateDisasters = $scope.aDisasters[state];
             $scope.aStateVolunteers = $scope.aVolunteers[state];
+            //load fema news by state
+            $scope.loadFemaNewsByState(state);
+        } else {
+            //load fema news region
+            $scope.loadFemaNewsRegion();
         }
     };
 
-    //FEMA news region
-    ApiInterfaceService.call('femaNews', '', {}).then(
-        function(data){ //success
-            var x2js = new X2JS();
-            var femaNewsData = x2js.xml_str2json( data );
-            $scope.femaNewsData = femaNewsData.rss.channel.item;
-        }, 
-        function(error) { //error
-            console.log(error);
-        }
-    );
+    /**
+     * FEMA news region
+     * @returns Void()
+     */
+    $scope.loadFemaNewsRegion = function() {
+        ApiInterfaceService.call('femaNews', '', {}).then(
+            function(data){ //success
+                var x2js = new X2JS();
+                var femaNewsData = x2js.xml_str2json( data );
+                $scope.femaNewsData = femaNewsData.rss.channel.item;
+            }, 
+            function(error) { //error
+                console.log(error);
+            }
+        );
+    }
 
     /**
      * load fema news by state using Amazon Gateway API (to call google api - CORS work around)
@@ -281,4 +291,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
             console.log(error);
         });
     };
+
+    //load fema region news
+    $scope.loadFemaNewsRegion();
 }]);
