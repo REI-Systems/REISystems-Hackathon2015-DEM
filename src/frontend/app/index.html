@@ -27,7 +27,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-
+    <div class="notification" ng-controller="NotificationCtrl" ng-show="notifactionMsg.length>0">
+      {{notifactionMsg}}
+    </div>
     <md-toolbar ng-controller="NavCtrl">
 
       <div class="md-toolbar-tools">

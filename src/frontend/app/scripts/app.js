@@ -23,7 +23,7 @@ var app = angular
     'angularSpinner',
     'angular-carousel'
   ])
-  .config(['$routeProvider', function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider,$locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
