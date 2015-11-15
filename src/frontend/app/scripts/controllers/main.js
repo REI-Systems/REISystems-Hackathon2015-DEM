@@ -150,7 +150,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                         html += '</div>'
                     return html;
                 },
-                //highlightBorderWidth: 3
+                highlightBorderWidth: 0.5
             },
             "fills": {
                 "Forecast": '#ccccff',
