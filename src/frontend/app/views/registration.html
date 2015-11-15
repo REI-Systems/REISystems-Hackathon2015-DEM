@@ -1,58 +1,68 @@
 <h1>Registration</h1>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident voluptatibus veniam ipsum minus aperiam ut dicta. Vel veritatis, at molestiae ea, voluptatem quam non hic dolorem excepturi iure numquam magnam!</p>
+<p>We're the community! We connect businesses who want to help people in difficult times of there life. It is through the time and care of ordinary people that we can do extraordinary things.</p>
+<p>Make a difference today. Register Your business!!</p>
+<p>Fields marked with * are required</p>
+
+<div>{{generalMessage}}</div>
 <form name="registrationForm" id="registration" form-submit="submit()" novalidate>
 <div>	
 	<h2>Business Information</h2>
 	<div class="left">
-		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Business Name" required>
-		<input name="formPhone" ng-model="form.phone" phone type="text" id="phoneNumber" placeholder="Contact Info: Phone Number" required>
+		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Enter Business Name*" required>
+		<input name="formPhone" ng-model="form.phone" phone type="text" id="phoneNumber" placeholder="Enter Phone Number*" required>
 		<span class="error" ng-show="registrationForm.formPhone.$dirty && registrationForm.formPhone.$error.phone">Invalid phone number!</span>
-		<input ng-model="form.email" type="email" id="email" placeholder="Contact Info: Email" required>
+		<input ng-model="form.email" type="email" id="email" placeholder="Enter Email Address*" required>
 	</div>
 
 	<div class="right">
-		<input name="formAddress" ng-model="form.address" type="text" id="address" placeholder="Business Address: Street, unit #" integer required>
-		<span class="error" ng-show="(registrationForm.formAddress.$dirty && submitted) && registrationForm.formAddress.$error.integer">Invalid address!</span>
+		<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" placeholder="Enter Street Address*" required>
+		<span class="error" ng-show="(registrationForm.formAddress.$dirty) && registrationForm.formAddress.$error.address">Invalid address!</span>
 		<div>
 			<select name="formState" ng-model="form.state" 
 			ng-options="option.name as option.state for option in stateOptions" required>
-				<option value="">State</option> 
+				<option value="">Select State*</option> 
 			</select>
 			<span class="error" ng-show="registrationForm.formState.$dirty && registrationForm.formState.$invalid">Select a State</span>
-			<input name="zipcode" ng-model="form.zip" type="text" zipcode id="zip" placeholder="Zip Code" required>
+			<input name="zipcode" ng-model="form.zip" type="text" zipcode id="zip" placeholder="Enter Zip Code*" required>
 			<span class="error" ng-show="registrationForm.zipcode.$dirty && registrationForm.zipcode.$invalid">Invalid ZipCode</span>
 		</div>
-		<select name="formDisasterParticipation" ng-model="form.disasterParticipation"
-		ng-options="option.disasterNumber as option.optionText for option in disasterParticipationOptions">
-			<option value="">Disasters You Participated in</option>
-		</select>
+		<div>
+			<label>Select Disasters Your Business Participated in the Past<label><br/>
+			<select name="formDisasterParticipation" ng-model="form.disasterParticipation"
+			ng-options="option.disasterNumber as option.optionText for option in disasterParticipationOptions" multiple>
+			</select>
+		</div>
 	</div>
 </div>
 <div>
 	<h2>Assistance Preferences</h2>
 	<div class="left">
-		<select name="formAssistanceInterest" ng-model="form.assistanceInterest"
-		ng-options="option for option in assistanceInterestOptions" required>
-			<option value="">Type of Assistance you are interested in</option>
-		</select>
-		<span class="error" ng-show="registrationForm.formAssistanceInterest.$dirty && registrationForm.formAssistanceInterest.$invalid">Select an option</span>
-		<select name="formDisasterInterest" ng-model="form.disasterInterest"
-		ng-options="option.value as option.name for option in disasterInterestOptions" required>
-			<option value="">Type of Disaster you are interested in</option>
-		</select>
-		<span class="error" ng-show="registrationForm.formDisasterInterest.$dirty && registrationForm.formDisasterInterest.$invalid">Select an option</span>
+		<div>
+			<label>Select Type of Assistance*</label><br/>
+			<select name="formAssistanceInterest" ng-model="form.assistanceInterest"
+			ng-options="option for option in assistanceInterestOptions" required multiple>
+			</select>
+			<span class="error" ng-show="registrationForm.formAssistanceInterest.$dirty && registrationForm.formAssistanceInterest.$invalid">Select an option</span>
+		</div>
+		<div>
+			<label>Select Type of Disaster*</label><br/>
+			<select name="formDisasterInterest" ng-model="form.disasterInterest"
+			ng-options="option for option in disasterInterestOptions" required multiple>Type of Disaster you are interested in*
+			</select>
+			<span class="error" ng-show="registrationForm.formDisasterInterest.$dirty && registrationForm.formDisasterInterest.$invalid">Select an option</span>
+		</div>
 	</div>
 
 	<div class="right">
 		<select name="formServiceInterest" ng-model="form.serviceInterest"
 		ng-options="option.value as option.name for option in serviceInterestOptions" required>
-			<option value="">Radius of service you are interested in</option>
+			<option value="">Select Radius*</option>
 		</select>
 		<span class="error" ng-show="registrationForm.formServiceInterest.$dirty && registrationForm.formServiceInterest.$invalid">Select an option</span>
 		<select name="formCompensationType" ng-model="form.compensationType"
 		ng-options="option for option in compensationTypeOptions" required>
-			<option value="">Type of compensation</option>
+			<option value="">Select Type of Compensation*</option>
 		</select>
 		<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
 	</div>

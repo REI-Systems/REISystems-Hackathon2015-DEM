@@ -42,6 +42,12 @@
     "longitude":-72.7622
   },
   {
+    "name": "DC",
+    "state":"District of Columbia",
+    "latitude":38.9047,
+    "longitude":-77.0164
+  },
+  {
     "name": "DE",
     "state":"Delaware",
     "latitude":39.3498,

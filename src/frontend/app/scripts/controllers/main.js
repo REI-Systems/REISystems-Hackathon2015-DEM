@@ -54,6 +54,45 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
         var usGeoData = resultls[3].data;
 
         var aMapData = {};
+        var aDataUnique = [];
+
+        //FEMA DATA (current disaster)
+        if(femaData && femaData.DisasterDeclarationsSummaries) {
+            angular.forEach(femaData.DisasterDeclarationsSummaries, function(row) {
+                if(aDataUnique.indexOf(row.title) === -1) {
+                    //add entry title to aDataUnique
+                    aDataUnique.push(row.title);
+
+                    var state = row.state;
+                    var rowMap = {};
+                    var mapData = {
+                        "disasterName": row.title,
+                        "disasterType": row.incidentType,
+                        "date": {
+                            "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LL'),
+                            "end": null
+                        }
+                    };
+
+                    //Verify if we already have state in aMapData
+                    if(aMapData.hasOwnProperty(state)) { //exist
+                        //push data into existing state
+                        aMapData[state].data.push(mapData);
+                    } else { //create state with data
+                        rowMap = {
+                        "fillKey": "Current Disaster",
+                        "data": [ mapData ]
+                        };
+
+                        //push this entry to global data container 
+                        aMapData[state] = rowMap;
+                    }
+                }
+            });
+        }
+
+        //empty array of title for forecast
+        aDataUnique = [];
 
         //NOAA DATA (forecast)
         if(noaaData && noaaData.feed && noaaData.feed.entry) {
@@ -61,7 +100,10 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                 //filter NOAA forecast that we need to show on map
                 if(aNoaaEventType.indexOf(row.event.__text) !== -1) {
                     //make sure we have state
-                    if(row.geocode.value[1]){
+                    if(row.geocode.value[1] && aDataUnique.indexOf(row.title) === -1){
+                        //add entry title to aDataUnique
+                        aDataUnique.push(row.title);
+
                         var state = row.geocode.value[1].substr(0, 2);
                         var rowMap = {};
                         var mapData = {
@@ -73,55 +115,16 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             }
                         };
 
-                        //Verify if we already have state in aMapData
-                        if(aMapData.hasOwnProperty(state)) { //exist
-                            //push data into existing state
-                            aMapData[state].data.push(mapData);
-                        } else { //create state with data
+                        if(!aMapData.hasOwnProperty(state)) { //create state with data
                             rowMap = {
-                            "fillKey": "Forecast",
-                            "data": [ mapData ]
+                                "fillKey": "Forecasted Disaster",
+                                "data": [ mapData ]
                             };
 
                             //push this entry to global data container 
                             aMapData[state] = rowMap;
                         }
                     }
-                }
-            });
-        }
-
-        //FEMA DATA (current disaster)
-        if(femaData && femaData.DisasterDeclarationsSummaries) {
-            angular.forEach(femaData.DisasterDeclarationsSummaries, function(row) {
-                var state = row.state;
-                var rowMap = {};
-                var mapData = {
-                    "disasterName": row.title,
-                    "disasterType": row.incidentType,
-                    "date": {
-                        "start": moment.utc(row.declarationDate, 'YYYY-MM-DD H:m:ss').format('LLLL'),
-                        "end": null
-                    }
-                };
-
-                //Verify if we already have state in aMapData
-                if(aMapData.hasOwnProperty(state)) { //exist
-                    //change color state to (Forecast/Current)
-                    if(aMapData[state].fillKey && aMapData[state].fillKey === "Forecast") {
-                        aMapData[state].fillKey = "Current/Forecast";
-                    }
-
-                    //push data into existing state
-                    aMapData[state].data.push(mapData);
-                } else { //create state with data
-                    rowMap = {
-                    "fillKey": "Current",
-                    "data": [ mapData ]
-                    };
-
-                    //push this entry to global data container 
-                    aMapData[state] = rowMap;
                 }
             });
         }
@@ -150,14 +153,14 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                         html += '</div>'
                     return html;
                 },
-                highlightBorderWidth: 0.5
+                highlightBorderWidth: 0.5,
+                highlightFillColor: '#aeb0b5'
             },
             "fills": {
-                "Forecast": '#ccccff',
-                "Current": '#ff9999',
-                "Current/Forecast": '#ff5c33',
-                "Volunteer": '#ffcc99',
-                "defaultFill": '#DDDDDD'
+                "Forecasted Disaster": '#a389dc',
+                "Current Disaster": '#FF5C33',
+                "Volunteer": '#fad980',
+                "defaultFill": '#f1f1f1'
             },
             "data": aMapData,
             "done": function(datamap) {
@@ -172,7 +175,6 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
                 }
             }
-            //,"responsive": true
         });
 
         //Volunteers data
@@ -205,7 +207,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
 
                 angular.forEach(data.data, function(row){
                     html += '<p><b>Name</b>: '+row.businessName+ '<br />';
-                    html += '<b>Address</b>: '+row.address+ ',' + row.state + ' ' + row.zip +'<br />';
+                    html += '<b>Disaster Type</b>: '+row.disasterInterest +'<br />';
                     html += '<b>Contact</b>: '+row.email+ ' / ' + row.phone +'<br />';
                     html += '<b>Service</b>: '+row.assistanceInterest+ '</p>';
                 });

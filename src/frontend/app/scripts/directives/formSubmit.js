@@ -4,18 +4,25 @@ app.directive('formSubmit', function() {
     require: '^form',
     link: function ($scope, element, attrs, formCtrl) {
       element.on('submit', function() {
-        //console.log('directive hit');
-        if($scope.validateAddress()){
-          formCtrl.$valid = false;
+        var res = $scope.validateAddress();
+        if(res){
+          res.then(function(resolve){
+            if(!resolve){
+              formCtrl.$valid = false;
+              $scope.generalMessage = "Invalid Address";
+              $scope.registrationForm.formAddress.$setValidity('address', false);
+            }
+            if (formCtrl.$valid) {
+              $scope.submit();  
+            }
+            else {
+              // service to display invalid inputs
+            }
+          },function(reject){
+
+          });
         }
-        if (formCtrl.$valid) {
-          //console.log($scope);
-          $scope.submit();  
-        }
-        else {
-          // service to display invalid inputs
-          //console.log('invalid submission');
-        }
+        
       });
     }
   };
@@ -30,7 +37,6 @@ app.directive('zipcode', function() {
           // consider empty models to be valid
           return true;
         }
-        //console.log(ZIPCODE_REGEX);
         if (ZIPCODE_REGEX.test(viewValue)) {
           // it is valid
           return true;
@@ -42,18 +48,16 @@ app.directive('zipcode', function() {
     }
   };
 });
-var PHONE_REGEX = /(^\d{10}$)|(^\(\d{3}\)\d{3}-\d{4}$)|(^\d{3}-\d{3}-\d{4}$)/;
+var PHONE_REGEX = /(^\d{10}$)|(^\(\d{3}\)\d{3}-\d{4}$)|(^\(\d{3}\)\s\d{3}-\d{4}$)|(^\d{3}-\d{3}-\d{4}$)/;
 app.directive('phone', function() {
   return {
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
       ctrl.$validators.phone = function(modelValue, viewValue) {
-        //console.log('phone directive');
         if (ctrl.$isEmpty(modelValue)) {
           // consider empty models to be valid
           return true;
         }
-        //console.log(PHONE_REGEX);
         if (PHONE_REGEX.test(viewValue)) {
           // it is valid
           return true;

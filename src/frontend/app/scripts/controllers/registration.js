@@ -9,14 +9,14 @@
  */
 
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService',function ($scope,firebaseFactory,ApiInterfaceService) {
+  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService','$q',function ($scope,firebaseFactory,ApiInterfaceService,$q) {
+    $scope.generalMessage = "";
     $scope.form = {};
     $scope.processing = false;
     $scope.stateOptions = [];
     var states = ApiInterfaceService.call('usGeoloc','',{});
     states.then(function(data){
-    	//console.log(data);
-    	$scope.stateOptions = data;//console.log(data);
+		$scope.stateOptions = data;
     },function(reason){
     	//todo
     },function(update){
@@ -25,8 +25,8 @@ angular.module('frontendApp')
     var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'disasterNumber,title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
     var savedDisasterNumbers = [];
     femaDisaster.then(function(data) {
-    	var reformattedArray = data.DisasterDeclarationsSummaries.filter(function(obj,idx,array){ 
-			if(savedDisasterNumbers.indexOf(obj.disasterNumber)!=-1){
+    	var reformattedArray = data.DisasterDeclarationsSummaries.filter(function(obj){ 
+			if(savedDisasterNumbers.indexOf(obj.disasterNumber)!==-1){
 				return false;
 			}
 			else{
@@ -47,12 +47,11 @@ angular.module('frontendApp')
 			rObj.optionText = obj.title.trim() + ", " + obj.disasterNumber+" - "+(monthNames[date.getUTCMonth()]) + " "+ date.getUTCDate()+ ", "+ date.getUTCFullYear();
 			return rObj;
 		});
-		//console.log(reformattedArray);
 		$scope.disasterParticipationOptions = reformattedArray;
 	}, function(reason) {
-		//console.log(reason);
+		//todo
 	}, function(update) {
-		//console.log(update);
+		//todo
 	});
     $scope.assistanceInterestOptions = [
     	'Produce',
@@ -64,17 +63,26 @@ angular.module('frontendApp')
 		'Waste Management Services',
 		'IT Services',
 		'Counseling Services',
-		'Chill Care Services',
+		'Child Care Services',
 		'Transportation Services',
-		'Translation Services', 
-		'Clerical Services', 
-		'Burial Services'
+		'Translation Services',
+		'Clerical Services',
+		'Burial Services',
+		'Debris Removal',
+		'Protective Measures',
+		'Roads & Bridges',
+		'Water Control Facilities',
+		'Public Buildings',
+		'Public Utilities',
+		'Recreational or Other',
+		'State Management'
     ];
     $scope.disasterInterestOptions = [
-		{name:'Major Disaster Declaration', value:'DR'}, 
-		{name:'Fire Management Assistance Declaration', value:'FM'}, 
-		{name:'Fire Suppression Authorization', value:'FS'},  
-		{name:'Emergency Declaration', value:'EM'}, 
+		'Chemical','Coastal Storm','Dam/Levee Break','Drought',
+		'Earthquake','Fire','Fishing Losses','Flood','Freezing',
+		'Human Cause','Hurricane','Mud/Landslide','Other','Severe Ice Storm',
+		'Severe Storm(s)','Snow','Terrorist','Tornado','Toxic Substances',
+		'Tsunami','Typhoon','Volcano'
     ];
     $scope.serviceInterestOptions = [
     	{ name: '5 miles', value: '5' },
@@ -83,7 +91,7 @@ angular.module('frontendApp')
     	{ name: '50 miles', value: '50' },
     	{ name: '100 miles', value: '100' },
     	{ name: '250 miles', value: '250' },
-    	{ name: 'over 250 miles', value: '>250' },
+    	{ name: 'over 250 miles', value: '>250' }
     ];
     $scope.compensationTypeOptions = [
     	'Volunteer',
@@ -91,17 +99,32 @@ angular.module('frontendApp')
     ];
     $scope.submit = function() {
     	$scope.processing = true;
-		firebaseFactory.addItem($scope.form); 
+    	var phone = $scope.form.phone;
+    	phone = phone.replace(/\D/g,'');
+    	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
+    	$scope.form.phone = phone;
+    	firebaseFactory.addItem($scope.form); 
 	};
 	$scope.validateAddress = function(){
-		//console.log('i made it here');
-		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address,components:'country:US'});
+		var deferred = $q.defer();
+		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address+", "+$scope.form.state,components:'country:US'});
 		googleMaps.then(function(data){
-	    	//console.log(data);
-    	},function(reason){
-    		//console.log(reason);
-	    },function(update){
-	    	//console.log(update);
+	    	data.results.forEach(function(el,idx,arr){
+	    		if(typeof el.partial_match == "undefined"){
+	    			deferred.resolve(true);
+	    		}
+	    	});
+	    	deferred.resolve(false);
+    	},function(){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
+    		deferred.reject('Error: couldn\'t validate address');
+	    },function(){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
+	    	deferred.reject('Error: couldn\'t validate address');
 	    });
-	}
+	    return deferred.promise;
+	};
+	$scope.resetAddressValidation = function(){
+		$scope.registrationForm.formAddress.$setValidity('address', true);
+	};
   }]);
