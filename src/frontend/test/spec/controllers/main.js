@@ -16,8 +16,26 @@ describe('Controller: MainCtrl', function () {
       // place here mocked dependencies
     });
   }));
+  
+  it('Function fema news by state empty array', function(){
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
+    scope.loadFemaNewsByState('VA');
+
+    expect(scope.femaNewsData.length).toBe(0);
+  });
+
+  it('Function load list by state empty array', function(){
+
+    scope.aDisasters = {
+        "VA":[]
+    };
+    scope.aVolunteers = {
+        "VA":[]
+    };
+
+    scope.loadListByState('VA');
+
+    expect(scope.aStateDisasters.length).toBe(0);
+    expect(scope.aStateVolunteers.length).toBe(0);
   });
 });

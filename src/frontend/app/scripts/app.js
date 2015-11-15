@@ -20,7 +20,8 @@ var app = angular
     'ngTouch',
     'ngMaterial',
     'firebase',
-    'angularSpinner'
+    'angularSpinner',
+    'angular-carousel'
   ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

@@ -7,7 +7,7 @@
  * # firebaseFactory
  * Controller of the frontendApp
  */
-app.factory('firebaseFactory', ['$firebaseObject',function ($firebaseObject){
+app.factory('firebaseFactory', ['$firebaseObject','$window',function ($firebaseObject,$window){
     var _url = 'https://popping-fire-2842.firebaseio.com/registrations';
     var _ref = new Firebase(_url);
     
@@ -19,6 +19,7 @@ app.factory('firebaseFactory', ['$firebaseObject',function ($firebaseObject){
         	_ref.push(item,function(e){
 		    	if(e === null){
 		    		alert("Added to Firebase successfully");
+		    		$window.location.href= '/';
 		    	}
 		    	else{
 		    		alert("Error adding to Firebase");

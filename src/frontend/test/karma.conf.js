@@ -41,6 +41,7 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/spin.js/spin.js',
       'bower_components/angular-spinner/angular-spinner.js',
+      'bower_components/angular-carousel/dist/angular-carousel.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
