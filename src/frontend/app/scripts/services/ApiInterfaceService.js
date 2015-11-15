@@ -15,7 +15,8 @@ app.service('ApiInterfaceService', ['$http', '$q', '$log', function ($http, $q, 
         "femaDisaster": "http://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries",
         "googleNews": "https://tar5pekho5.execute-api.us-east-1.amazonaws.com/prod/ga-fema-news-by-state",
         "femaNews": "https://dm258ridhh.execute-api.us-east-1.amazonaws.com/prod/get-news",
-        "demVolunteer": "https://popping-fire-2842.firebaseio.com/registrations.json"
+        "demVolunteer": "https://popping-fire-2842.firebaseio.com/registrations.json",
+        "googleMaps": "http://maps.googleapis.com/maps/api/geocode/json"
     };
 
     this.APIs = APIs;

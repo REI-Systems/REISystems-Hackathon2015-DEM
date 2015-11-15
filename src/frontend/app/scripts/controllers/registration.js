@@ -7,6 +7,7 @@
  * # RegistrationCtrl
  * Controller of the frontendApp
  */
+
 angular.module('frontendApp')
   .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService',function ($scope,firebaseFactory,ApiInterfaceService) {
     $scope.form = {};
@@ -21,15 +22,36 @@ angular.module('frontendApp')
     },function(update){
     	//todo
     });
-    var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
+    var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'disasterNumber,title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
+    var savedDisasterNumbers = [];
     femaDisaster.then(function(data) {
-    	var reformattedArray = data.DisasterDeclarationsSummaries.map(function(obj){ 
+    	var reformattedArray = data.DisasterDeclarationsSummaries.filter(function(obj,idx,array){ 
+			if(savedDisasterNumbers.indexOf(obj.disasterNumber)!=-1){
+				return false;
+			}
+			else{
+				/*var rObj = {};
+				rObj.id = obj.id;
+				rObj.title = obj.title;
+				rObj.incidentBeginDate = obj.incidentBeginDate;
+				var date = new Date(obj.incidentBeginDate);
+				rObj.optionText = date +" - "+obj.title;
+				return rObj;*/
+				savedDisasterNumbers.push(obj.disasterNumber);
+				return true;
+			}
+		});
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+		];
+		reformattedArray = reformattedArray.map(function(obj){
 			var rObj = {};
 			rObj.id = obj.id;
 			rObj.title = obj.title;
+			rObj.disasterNumber = obj.disasterNumber;
 			rObj.incidentBeginDate = obj.incidentBeginDate;
 			var date = new Date(obj.incidentBeginDate);
-			rObj.optionText = date +" - "+obj.title;
+			rObj.optionText = obj.title.trim() + ", " + obj.disasterNumber+" - "+(monthNames[date.getUTCMonth()]) + " "+ date.getUTCDate()+ ", "+ date.getUTCFullYear();
 			return rObj;
 		});
 		//console.log(reformattedArray);
@@ -78,4 +100,15 @@ angular.module('frontendApp')
     	$scope.processing = true;
 		firebaseFactory.addItem($scope.form); 
 	};
+	$scope.validateAddress = function(){
+		//console.log('i made it here');
+		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address,components:'country:US'});
+		googleMaps.then(function(data){
+	    	//console.log(data);
+    	},function(reason){
+    		//console.log(reason);
+	    },function(update){
+	    	//console.log(update);
+	    });
+	}
   }]);
