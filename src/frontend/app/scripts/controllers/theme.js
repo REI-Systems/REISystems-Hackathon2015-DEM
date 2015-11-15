@@ -48,6 +48,7 @@ app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
       // Extend the red theme with a few different colors
       var darkBlueMap = $mdThemingProvider.extendPalette('indigo', {
         '500': '112e51',
+        'A200': 'FAD980',
         'A400': '981b1e'
       });
       // Register the new color palette map with the name <code>neonRed</code>
@@ -55,6 +56,9 @@ app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
       // Use that theme for the primary intentions
       $mdThemingProvider.theme('default')
         .primaryPalette('darkBlue')
+        .warnPalette('darkBlue',{
+          'default': 'A200'
+        })
         .accentPalette('darkBlue',{
           'default': 'A400'
         });
