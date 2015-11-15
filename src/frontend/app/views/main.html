@@ -1,9 +1,9 @@
 
 <div ng-cloak>
   <md-content>
-    <md-tabs class="md-accent" md-dynamic-height md-border-bottom>
+    <md-tabs class="md-accent" md-dynamic-height>
       <md-tab label="Map">
-        <md-content>
+        <md-content layout-margin>
           <h1 class="md-display-1">Disaster Map</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
@@ -11,11 +11,11 @@
             Etiam consequat aliquam cursus. In sodales pretium ultrices.
             Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
           </p>
-          <div id="container" style="position: relative; width: 700px; height: 350px;" ng-show="!showList"></div>
+          <div id="container" style="position: relative; width: 700px; height: 350px;"></div>
         </md-content>
       </md-tab>
       <md-tab label="List">
-        <md-content>
+        <md-content layout-margin>
           <h1 class="md-display-1">Disaster List</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
@@ -54,11 +54,9 @@
               <h3>No disaster found for this state.</h3>
             </md-list-item>
 
-          </div>
-
-          <div ng-show="selectedState">
             <md-subheader class="md-no-sticky">Volunteers</md-subheader>
             <md-list-item class="md-3-line" ng-repeat="oStateVolunteer in aStateVolunteers.data">
+              <md-icon aria-label="Person" class="material-icons md-36">person</md-icon>
               <div class="md-list-item-text" layout="column">
                 <h3>{{oStateVolunteer.businessName }} ({{oStateVolunteer.assistanceInterest }})</h3>
                 <h4>{{oStateVolunteer.address }}, {{oStateVolunteer.state }} {{oStateVolunteer.zip }}</h4>
@@ -69,6 +67,7 @@
             <md-list-item ng-show="!aStateVolunteers.data.length">
               <h3>No volunteer found for this state.</h3>
             </md-list-item>
+
           </div>
 
         </md-content>
@@ -78,8 +77,27 @@
 </div>
 
 
+<!-- <h1 class="md-headline">News</h1>
+<md-list-item class="md-3-line" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
+  <div class="md-list-item-text">
+    <h3><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h3>
+    <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
+  </div>
+</md-list-item> -->
 
-<div id="news-container" style="clear:both; margin: 10px;">
+
+<div layout="row" layout-wrap>
+  <div flex="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:6">
+    <md-card>
+      <md-card-content>
+        <h2 class="md-title"><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h2>
+        <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+<!-- <div id="news-container" style="clear:both; margin: 10px;">
     <ul rn-carousel class="image" rn-carousel-transition="hexagon" rn-carousel-controls style="height: 200px !important;">
         <li id="news-feeds-item-{{$index}}" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
             <div class="layer">
@@ -90,4 +108,4 @@
             </div>
         </li>
     </ul>
-</div>
+</div> -->

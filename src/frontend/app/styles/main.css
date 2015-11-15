@@ -20,3 +20,23 @@ md-chips.md-default-theme, md-chips .md-chips {
 	box-shadow: none;
 	margin-top: 10px;
 }
+
+
+/* Material Icon Sizes
+   ========================================================================== */
+/**
+ * we recommend them to be shown in either 18, 24, 36 or 48px. The default being 24px.
+ */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+
+/* Map Overrides
+   ========================================================================== */
+
+.datamaps-legend {
+  position: static !important;
+  padding-bottom: 0px !important;
+}
