@@ -1,3 +1,4 @@
+//directives related to form submission
 app.directive('formSubmit', function() {
   return {
     restrict: 'A',
@@ -15,11 +16,11 @@ app.directive('formSubmit', function() {
             if (formCtrl.$valid) {
               $scope.submit();  
             }
-            else {
-              // service to display invalid inputs
-            }
           },function(reject){
-
+            //couldn't connect to api to validate address, skipping
+            if (formCtrl.$valid) {
+              $scope.submit();  
+            }
           });
         }
         

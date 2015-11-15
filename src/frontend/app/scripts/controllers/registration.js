@@ -9,50 +9,92 @@
  */
 
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService','$q',function ($scope,firebaseFactory,ApiInterfaceService,$q) {
+  .controller('RegistrationCtrl', ['$rootScope','$scope','firebaseFactory','ApiInterfaceService','$q','$log','$location',function ($rootScope,$scope,firebaseFactory,ApiInterfaceService,$q,$log,$location) {
+    //get state data from api
+    $scope.loadStateOptions = function(){
+    	var states = ApiInterfaceService.call('usGeoloc','',{});
+	    states.then(function(data){
+	    	$scope.stateOptions = data;
+	    },function(reason){
+	    	$log.error(reason);
+	    });
+    };
+    //get past disaster data from api
+    $scope.loadPastDisasterOptions = function(){
+    	var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'disasterNumber,title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
+	    var savedDisasterNumbers = [];
+	    femaDisaster.then(function(data) {
+	    	var reformattedArray = data.DisasterDeclarationsSummaries.filter(function(obj){ 
+				if(savedDisasterNumbers.indexOf(obj.disasterNumber)!==-1){
+					return false;
+				}
+				else{
+					savedDisasterNumbers.push(obj.disasterNumber);
+					return true;
+				}
+			});
+			var monthNames = ["January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"
+			];
+			reformattedArray = reformattedArray.map(function(obj){
+				var rObj = {};
+				rObj.id = obj.id;
+				rObj.title = obj.title;
+				rObj.disasterNumber = obj.disasterNumber;
+				rObj.incidentBeginDate = obj.incidentBeginDate;
+				var date = new Date(obj.incidentBeginDate);
+				rObj.optionText = obj.title.trim() + ", " + obj.disasterNumber+" - "+(monthNames[date.getUTCMonth()]) + " "+ date.getUTCDate()+ ", "+ date.getUTCFullYear();
+				return rObj;
+			});
+			$scope.disasterParticipationOptions = reformattedArray;
+		}, function(reason) {
+			$log.error(reason);
+		});
+    }
+    //submission processing
+    $scope.submit = function() {
+    	var phone = $scope.form.phone;
+    	phone = phone.replace(/\D/g,'');
+    	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
+    	$scope.form.phone = phone;
+    	var promise = firebaseFactory.addItem($scope.form);
+    	promise.then(function(resolve){
+    		$location.path('/');
+    		$rootScope.$emit('notification', {msg:'Successful submission, Thanks for registering!'});
+    	}, function(reject){
+    		$log.error(reject);
+    		$scope.generalMessage = "Error making submission, please try again later";
+    	});
+	};
+	//address validation, done on submit
+	$scope.validateAddress = function(){
+		var deferred = $q.defer();
+		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address+", "+$scope.form.state,components:'country:US'});
+		googleMaps.then(function(data){
+	    	data.results.forEach(function(el){
+	    		if(typeof el.partial_match === "undefined"){
+	    			deferred.resolve(true);
+	    		}
+	    	});
+	    	deferred.resolve(false);
+    	},function(){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
+    		deferred.reject('Error: couldn\'t validate address');
+	    },function(){
+    		$scope.generalMessage = 'Error: couldn\'t validate address';
+	    	deferred.reject('Error: couldn\'t validate address');
+	    });
+	    return deferred.promise;
+	};
+	$scope.resetAddressValidation = function(){
+		$scope.registrationForm.formAddress.$setValidity('address', true);
+	};
     $scope.generalMessage = "";
     $scope.form = {};
-    $scope.processing = false;
     $scope.stateOptions = [];
-    var states = ApiInterfaceService.call('usGeoloc','',{});
-    states.then(function(data){
-		$scope.stateOptions = data;
-    },function(reason){
-    	//todo
-    },function(update){
-    	//todo
-    });
-    var femaDisaster = ApiInterfaceService.call('femaDisaster','',{'$select':'disasterNumber,title,incidentBeginDate','$orderby':'incidentBeginDate desc'});
-    var savedDisasterNumbers = [];
-    femaDisaster.then(function(data) {
-    	var reformattedArray = data.DisasterDeclarationsSummaries.filter(function(obj){ 
-			if(savedDisasterNumbers.indexOf(obj.disasterNumber)!==-1){
-				return false;
-			}
-			else{
-				savedDisasterNumbers.push(obj.disasterNumber);
-				return true;
-			}
-		});
-		var monthNames = ["January", "February", "March", "April", "May", "June",
-		"July", "August", "September", "October", "November", "December"
-		];
-		reformattedArray = reformattedArray.map(function(obj){
-			var rObj = {};
-			rObj.id = obj.id;
-			rObj.title = obj.title;
-			rObj.disasterNumber = obj.disasterNumber;
-			rObj.incidentBeginDate = obj.incidentBeginDate;
-			var date = new Date(obj.incidentBeginDate);
-			rObj.optionText = obj.title.trim() + ", " + obj.disasterNumber+" - "+(monthNames[date.getUTCMonth()]) + " "+ date.getUTCDate()+ ", "+ date.getUTCFullYear();
-			return rObj;
-		});
-		$scope.disasterParticipationOptions = reformattedArray;
-	}, function(reason) {
-		//todo
-	}, function(update) {
-		//todo
-	});
+    $scope.disasterParticipationOptions = [];
+    $scope.loadStateOptions();
+    $scope.loadPastDisasterOptions();
     $scope.assistanceInterestOptions = [
     	'Produce',
 		'Shelter',
@@ -97,34 +139,4 @@ angular.module('frontendApp')
     	'Volunteer',
 		'Compensation'
     ];
-    $scope.submit = function() {
-    	$scope.processing = true;
-    	var phone = $scope.form.phone;
-    	phone = phone.replace(/\D/g,'');
-    	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
-    	$scope.form.phone = phone;
-    	firebaseFactory.addItem($scope.form); 
-	};
-	$scope.validateAddress = function(){
-		var deferred = $q.defer();
-		var googleMaps = ApiInterfaceService.call('googleMaps','',{address:$scope.form.address+", "+$scope.form.state,components:'country:US'});
-		googleMaps.then(function(data){
-	    	data.results.forEach(function(el,idx,arr){
-	    		if(typeof el.partial_match == "undefined"){
-	    			deferred.resolve(true);
-	    		}
-	    	});
-	    	deferred.resolve(false);
-    	},function(){
-    		$scope.generalMessage = 'Error: couldn\'t validate address';
-    		deferred.reject('Error: couldn\'t validate address');
-	    },function(){
-    		$scope.generalMessage = 'Error: couldn\'t validate address';
-	    	deferred.reject('Error: couldn\'t validate address');
-	    });
-	    return deferred.promise;
-	};
-	$scope.resetAddressValidation = function(){
-		$scope.registrationForm.formAddress.$setValidity('address', true);
-	};
   }]);
