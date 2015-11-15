@@ -58,7 +58,7 @@ app.directive('zipcode', function() {
     }
   };
 });
-var PHONE_REGEX = /(^\d{10}$)|(^\(\d{3}\)\d{3}-\d{4}$)|(^\d{3}-\d{3}-\d{4}$)/;
+var PHONE_REGEX = /(^\d{10}$)|(^\(\d{3}\)\d{3}-\d{4}$)|(^\(\d{3}\)\s\d{3}-\d{4}$)|(^\d{3}-\d{3}-\d{4}$)/;
 app.directive('phone', function() {
   return {
     require: 'ngModel',

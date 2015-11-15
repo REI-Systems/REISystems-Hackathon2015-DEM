@@ -64,17 +64,26 @@ angular.module('frontendApp')
 		'Waste Management Services',
 		'IT Services',
 		'Counseling Services',
-		'Chill Care Services',
+		'Child Care Services',
 		'Transportation Services',
 		'Translation Services', 
 		'Clerical Services', 
-		'Burial Services'
+		'Burial Services',
+		'Debris Removal', 
+		'Protective Measures', 
+		'Roads & Bridges', 
+		'Water Control Facilities', 
+		'Public Buildings', 
+		'Public Utilities', 
+		'Recreational or Other', 
+		'State Management', 
     ];
     $scope.disasterInterestOptions = [
-		{name:'Major Disaster Declaration', value:'DR'}, 
-		{name:'Fire Management Assistance Declaration', value:'FM'}, 
-		{name:'Fire Suppression Authorization', value:'FS'},  
-		{name:'Emergency Declaration', value:'EM'}, 
+		'Chemical','Coastal Storm','Dam/Levee Break','Drought',
+		'Earthquake','Fire','Fishing Losses','Flood','Freezing',
+		'Human Cause','Hurricane','Mud/Landslide','Other','Severe Ice Storm',
+		'Severe Storm(s)','Snow','Terrorist','Tornado','Toxic Substances',
+		'Tsunami','Typhoon','Volcano' 
     ];
     $scope.serviceInterestOptions = [
     	{ name: '5 miles', value: '5' },

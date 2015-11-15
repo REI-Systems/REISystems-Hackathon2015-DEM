@@ -217,8 +217,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
 
                 angular.forEach(data.data, function(row){
                     html += '<p><b>Name</b>: '+row.businessName+ '<br />';
-                    html += '<b>Address</b>: '+row.address+ ',' + row.state + ' ' + row.zip +'<br />';
-                    html += '<b>Contact</b>: '+row.email+ ' / ' + row.phone +'<br />';
+                    html += '<b>Disaster Type</b>: '+row.disasterInterest +'<br />';
                     html += '<b>Service</b>: '+row.assistanceInterest+ '</p>';
                 });
 
