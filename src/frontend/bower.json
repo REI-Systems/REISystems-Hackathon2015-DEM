@@ -20,13 +20,12 @@
     "datamaps": "*",
     "moment": "*",
     "angular-spinner": "*",
-    "angular-carousel":"*"
+    "angular-carousel": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
   "moduleName": "frontendApp",
-  "overrides": {
-  }
+  "overrides": {}
 }
