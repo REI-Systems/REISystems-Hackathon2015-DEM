@@ -5,13 +5,36 @@
       <md-tab label="Map">
         <md-content layout-margin>
           <h1 class="md-display-1">Disaster Map</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
-            ante augue. Phasellus volutpat neque ac dui mattis vulputate.
-            Etiam consequat aliquam cursus. In sodales pretium ultrices.
-            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
-          </p>
-          <div id="container" style="position: relative; width: 700px; height: 350px;"></div>
+
+          <div layout="row">
+            <div flex="100" flex-gt-sm="33" flex-gt-lg="50" flex-order="1">
+              <h3 class="md-title">
+                &#8220;Volunteering with the DEM was a brilliant experience and one
+                that I would highly recommend. The chance to help out survivors during
+                the Wildfires in Washington State in 2014 provided valuable experiences
+                for my employees and I. We had opportunities to contribute to the greater
+                cause and efforts, but also gained valuable knowledge, skills and experience
+                which continue inspiring other businesses in the area.&#8221;
+              </h3>
+              <em>- Tractor Supplies Inc.</em>
+            </div>
+
+            <div flex="100" flex-gt-sm="67" flex-gt-lg="50" flex-order="2" id="container" style="position: relative; width: 700px; height: 350px;"></div>
+          </div>
+
+          <br clear="all"><br clear="all">
+
+          <div layout="row" layout-wrap>
+            <div flex="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:6">
+              <md-card>
+                <md-card-content>
+                  <h2 class="md-title"><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h2>
+                  <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
+                </md-card-content>
+              </md-card>
+            </div>
+          </div>
+
         </md-content>
       </md-tab>
       <md-tab label="List">
@@ -86,7 +109,7 @@
 </md-list-item> -->
 
 
-<div layout="row" layout-wrap>
+<!-- <div layout="row" layout-wrap>
   <div flex="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:6">
     <md-card>
       <md-card-content>
@@ -95,7 +118,7 @@
       </md-card-content>
     </md-card>
   </div>
-</div>
+</div> -->
 
 <!-- <div id="news-container" style="clear:both; margin: 10px;">
     <ul rn-carousel class="image" rn-carousel-transition="hexagon" rn-carousel-controls style="height: 200px !important;">
