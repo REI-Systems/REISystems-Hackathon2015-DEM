@@ -8,6 +8,26 @@ button, select, html, textarea, input {
   font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
 }
 
+/**
+ * Links
+ */
+a{
+  color: #0071bc;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
+/**
+ * Heading Styles
+ */
+.md-display-1{
+  font-family: "Merriweather";
+  letter-spacing: -1.5px;
+}
+.md-title{
+  font-family: "Merriweather";
+}
 
 
 /* Material Chips
@@ -15,7 +35,9 @@ button, select, html, textarea, input {
 /**
  * Remove box shadow and vertical align center
  */
-
+.md-chips{
+  font-family: 'Source Sans Pro';
+}
 md-chips.md-default-theme, md-chips .md-chips {
 	box-shadow: none;
 	margin-top: 10px;
