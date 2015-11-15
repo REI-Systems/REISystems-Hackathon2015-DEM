@@ -53,11 +53,13 @@ angular.module('frontendApp')
     }
     //submission processing
     $scope.submit = function() {
-    	var phone = $scope.form.phone;
+    	//angularjs added some extra properties to our form, angular.toJson strips it, and we set it back up as an object
+    	var form = JSON.parse(angular.toJson($scope.form));
+    	var phone = form.phone;
     	phone = phone.replace(/\D/g,'');
     	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
-    	$scope.form.phone = phone;
-    	var promise = firebaseFactory.addItem($scope.form);
+    	form.phone = phone;
+    	var promise = firebaseFactory.addItem(form);
     	promise.then(function(resolve){
     		$location.path('/');
     		$rootScope.$emit('notification', {msg:'Successful submission, Thanks for registering!'});
