@@ -47,7 +47,7 @@
               <md-chips layout="row" layout-align="end end">
                 <md-chip>{{oStateDisaster.disasterType }}</md-chip>
               </md-chips>
-              <md-divider ></md-divider>
+              <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
 
             <md-list-item ng-show="!aStateDisasters.data.length">
@@ -64,7 +64,7 @@
                 <h4>{{oStateVolunteer.address }}, {{oStateVolunteer.state }} {{oStateVolunteer.zip }}</h4>
                 <p>{{oStateVolunteer.email }} / {{oStateVolunteer.phone }}</p>
               </div>
-              <md-divider ></md-divider>
+              <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
             <md-list-item ng-show="!aStateVolunteers.data.length">
               <h3>No volunteer found for this state.</h3>
