@@ -1,72 +1,113 @@
-<h1>Registration</h1>
-
-<p>We're the community! We connect businesses who want to help people in difficult times of there life. It is through the time and care of ordinary people that we can do extraordinary things.</p>
-<p>Make a difference today. Register Your business!!</p>
-<p>Fields marked with * are required</p>
-
+<div class="md-padding">
+<h1 class="md-display-1">Registration Form</h1>
+<md-content>
+<p>We're the community! We connect businesses who want to help people in difficult time of there lives. It is through the time and care of ordinary people that we can do extraordinary things.</p>
+<p>Make a difference today. Register Your business!</p>
 <div>{{generalMessage}}</div>
-<form name="registrationForm" id="registration" form-submit="submit()" novalidate>
-<div>	
-	<h2>Business Information</h2>
-	<div class="left">
-		<input ng-model="form.businessName" type="text" id="businessName" placeholder="Enter Business Name*" required>
-		<input name="formPhone" ng-model="form.phone" phone type="text" id="phoneNumber" placeholder="Enter Phone Number*" required>
-		<span class="error" ng-show="registrationForm.formPhone.$dirty && registrationForm.formPhone.$error.phone">Invalid phone number!</span>
-		<input ng-model="form.email" type="email" id="email" placeholder="Enter Email Address*" required>
-	</div>
+</md-content>
+<form name="registrationForm" id="registration" form-submit="submit()" novalidate layout="column" ng-cloak class="md-inline-form">
 
-	<div class="right">
-		<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" placeholder="Enter Street Address*" required>
-		<span class="error" ng-show="(registrationForm.formAddress.$dirty) && registrationForm.formAddress.$error.address">Invalid address!</span>
-		<div>
-			<select name="formState" ng-model="form.state" 
-			ng-options="option.name as option.state for option in stateOptions" required>
-				<option value="">Select State*</option> 
-			</select>
-			<span class="error" ng-show="registrationForm.formState.$dirty && registrationForm.formState.$invalid">Select a State</span>
-			<input name="zipcode" ng-model="form.zip" type="text" zipcode id="zip" placeholder="Enter Zip Code*" required>
-			<span class="error" ng-show="registrationForm.zipcode.$dirty && registrationForm.zipcode.$invalid">Invalid ZipCode</span>
+<div>	
+	<h2 class="md-title">Business Information</h2>
+	<md-content >
+		<div layout layout-sm="column">
+			<md-input-container flex>
+				<label>Enter Business Name<span style="color:red;">*</span></label>
+				<input ng-model="form.businessName" type="text" id="businessName" required>
+			</md-input-container>
+			
+			<md-input-container flex>
+				<label>Enter Street Address<span style="color:red;">*</span></label>
+				<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" required>
+			</md-input-container>
 		</div>
-		<div>
-			<label>Select Disasters Your Business Participated in the Past<label><br/>
-			<select name="formDisasterParticipation" ng-model="form.disasterParticipation"
-			ng-options="option.disasterNumber as option.optionText for option in disasterParticipationOptions" multiple>
-			</select>
+		<div layout layout-sm="column">
+			<md-input-container flex-gt-sm="50">
+				<label>Enter Phone Number<span style="color:red;">*</span></label>
+				<input name="formPhone" ng-model="form.phone" phone type="text" id="phoneNumber" required>
+				<div ng-messages="registrationForm.formPhone.$error">
+					<div ng-message="phone">Invalid phone number!</div>
+				</div>
+			</md-input-container>
+			<md-input-container flex>
+				<label>Select State<span style="color:red;">*</span></label>
+				<md-select name="formState" ng-model="form.state" required>
+					<md-option ng-repeat="option in stateOptions track by option.name" value="{{option.name}}">{{option.state}}</md-option>
+				</md-select>
+				<div ng-messages="registrationForm.formState.$invalid">
+					<div ng-message="">Select a State</div>
+				</div>
+			</md-input-container>
+			<md-input-container flex>
+				<label>Enter Zip Code<span style="color:red;">*</span></label>
+				<input name="zipcode" ng-model="form.zip" type="text" zipcode id="zip" required>
+				<div ng-messages="registrationForm.zipcode.$invalid">
+					<div ng-message="">Invalid ZipCode</div>
+				</div>
+			</md-input-container>
 		</div>
-	</div>
+		<div layout layout-sm="column">
+
+			<md-input-container flex>
+				<label>Enter Email Address<span style="color:red;">*</span></label>
+				<input ng-model="form.email" type="email" id="email" required>
+			</md-input-container>
+			<md-input-container flex>
+				<label>Select Disasters Your Business Participated in the Past</label>
+				<md-select name="formDisasterParticipation" ng-model="form.disasterParticipation"
+				 multiple>
+					<md-option ng-repeat="option in disasterParticipationOptions track by option.disasterNumber" value="{{option.disasterNumber}}">{{option.optionText}}</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+	</md-content>
 </div>
 <div>
-	<h2>Assistance Preferences</h2>
-	<div class="left">
-		<div>
-			<label>Select Type of Assistance*</label><br/>
-			<select name="formAssistanceInterest" ng-model="form.assistanceInterest"
-			ng-options="option for option in assistanceInterestOptions" required multiple>
-			</select>
-			<span class="error" ng-show="registrationForm.formAssistanceInterest.$dirty && registrationForm.formAssistanceInterest.$invalid">Select an option</span>
-		</div>
-		<div>
-			<label>Select Type of Disaster*</label><br/>
-			<select name="formDisasterInterest" ng-model="form.disasterInterest"
-			ng-options="option for option in disasterInterestOptions" required multiple>Type of Disaster you are interested in*
-			</select>
-			<span class="error" ng-show="registrationForm.formDisasterInterest.$dirty && registrationForm.formDisasterInterest.$invalid">Select an option</span>
-		</div>
-	</div>
+	<h2 class="md-title">Assistance Preferences</h2>
+	<md-content>
+		<div layout layout-sm="column">
+			<md-input-container flex>
+				<label>Select Type of Assistance<span style="color:red;">*</span></label>
+				<md-select name="formAssistanceInterest" ng-model="form.assistanceInterest"
+				 required multiple>
+					<md-option ng-repeat="option in assistanceInterestOptions track by option" value="{{option}}">{{option}}</md-option>
+				</md-select>
+				<!--div ng-messages="registrationForm.formAssistanceInterest.$errors">
+					<div ng-message="required">Select an option</div>
+				</div-->
+			</md-input-container>
 
-	<div class="right">
-		<select name="formServiceInterest" ng-model="form.serviceInterest"
-		ng-options="option.value as option.name for option in serviceInterestOptions" required>
-			<option value="">Select Radius*</option>
-		</select>
-		<span class="error" ng-show="registrationForm.formServiceInterest.$dirty && registrationForm.formServiceInterest.$invalid">Select an option</span>
-		<select name="formCompensationType" ng-model="form.compensationType"
-		ng-options="option for option in compensationTypeOptions" required>
-			<option value="">Select Type of Compensation*</option>
-		</select>
-		<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
-	</div>
+			<md-input-container flex>
+				<label>Select Radius<span style="color:red;">*</span></label>
+				<md-select name="formServiceInterest" ng-model="form.serviceInterest"
+				 required>
+					<md-option ng-repeat="option in serviceInterestOptions track by option.value" value="{{option.value}}">{{option.name}}</md-option>
+				</md-select>
+				<span class="error" ng-show="registrationForm.formServiceInterest.$dirty && registrationForm.formServiceInterest.$invalid">Select an option</span>
+			</md-input-container>
+		</div>
+		<div layout layout-sm="column">
+			<md-input-container flex>
+				<label>Select Type of Disaster<span style="color:red;">*</span></label>
+				<md-select name="formDisasterInterest" ng-model="form.disasterInterest"
+				 required multiple>
+					<md-option ng-repeat="option in disasterInterestOptions track by option" value="{{option}}">{{option}}</md-option>
+				</md-select>
+			</md-input-container>
+			<md-input-container flex>
+				<label>Select Type of Compensation<span style="color:red;">*</span></label>
+				<md-select name="formCompensationType" ng-model="form.compensationType"
+				 required>
+					<md-option ng-repeat="option in compensationTypeOptions track by option" value="{{option}}">{{option}}</md-option>
+				</md-select>
+				<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
+			</md-input-container>
+		</div>
+	</md-content>
 </div>
-
-<input class="btn btn-default" type="submit" id="submit" value="Submit" ng-disabled="registrationForm.$invalid"/>
+<md-content>
+	<p>Fields marked with <span style="color:red">*</span> are required</p>
+	<md-button class="md-raised md-primary" type="submit" id="submit"ng-disabled="registrationForm.$invalid">Submit</md-button>
+</md-content>
 </form>
+</div>
