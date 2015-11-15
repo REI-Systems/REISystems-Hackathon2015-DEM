@@ -9,7 +9,7 @@
  */
 
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$scope','firebaseFactory','ApiInterfaceService','$q','$log',function ($scope,firebaseFactory,ApiInterfaceService,$q,$log) {
+  .controller('RegistrationCtrl', ['$rootScope','$scope','firebaseFactory','ApiInterfaceService','$q','$log','$location',function ($rootScope,$scope,firebaseFactory,ApiInterfaceService,$q,$log,$location) {
     //get state data from api
     $scope.loadStateOptions = function(){
     	var states = ApiInterfaceService.call('usGeoloc','',{});
@@ -57,7 +57,14 @@ angular.module('frontendApp')
     	phone = phone.replace(/\D/g,'');
     	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
     	$scope.form.phone = phone;
-    	firebaseFactory.addItem($scope.form);
+    	var promise = firebaseFactory.addItem($scope.form);
+    	promise.then(function(resolve){
+    		$location.path('/');
+    		$rootScope.$emit('notification', {msg:'Successful submission, Thanks for registering!'});
+    	}, function(reject){
+    		$log.error(reject);
+    		$scope.generalMessage = "Error making submission, please try again later";
+    	});
 	};
 	//address validation, done on submit
 	$scope.validateAddress = function(){
