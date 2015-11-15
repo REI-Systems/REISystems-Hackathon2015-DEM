@@ -20,7 +20,6 @@ app.factory('firebaseFactory', ['$firebaseObject','$window','$location','$q',fun
         	_ref.push(item,function(e){
 		    	if(e === null){
 		    		deferred.resolve(true);
-		    		alert("Added to Firebase successfully");
 		    	}
 		    	else{
 		    		deferred.reject(false);
