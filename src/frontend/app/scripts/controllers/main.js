@@ -165,7 +165,14 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                     //load fema news by state
                     $scope.loadFemaNewsByState(geography.properties.name);
                 });
+
+                datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 5]).on("zoom", redraw));
+
+                function redraw() {
+                    datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                }
             }
+            //,"responsive": true
         });
 
         //Volunteers data
