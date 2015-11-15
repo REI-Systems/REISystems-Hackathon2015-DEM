@@ -7,13 +7,22 @@
  * # MainCtrl
  * Controller of the frontendApp
  */
-app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService', function ($scope, ApiInterfaceService, usSpinnerService) {
+app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService', '$mdMedia', '$window', function ($scope, ApiInterfaceService, usSpinnerService, $mdMedia, $window) {
     //show spin
     usSpinnerService.spin('spinner');
 
+    // Tabs behavior on mobile
+    var w = angular.element($window);
+    $scope.selectedIndex = $mdMedia('sm') ? 1 : 0; // Select list tab on mobile
+    $scope.disableMapTab = $mdMedia('sm') ? true : false; // disable map tab on mobile
+    w.bind('resize', function () {
+      $scope.selectedIndex = $mdMedia('sm') ? 1 : 0;
+      $scope.disableMapTab = $mdMedia('sm') ? true : false; // disable map tab on mobile
+    });
+
     //define Noaa event type to show on map
-    var aNoaaEventType = ['Earthquake Warning', 'Evacuation Immediate', 
-        'Extreme Fire Danger', 'Fire Warning', 'Fire Weather Watch', 'Flood Warning', 
+    var aNoaaEventType = ['Earthquake Warning', 'Evacuation Immediate',
+        'Extreme Fire Danger', 'Fire Warning', 'Fire Weather Watch', 'Flood Warning',
         'Flood Watch', 'Hurricane Warning', 'Hurricane Watch', 'Severe Thunderstorm Warning',
         'Severe Thunderstorm Watch', 'Tornado Warning', 'Tornado Watch', 'Tsunami Warning',
         'Tsunami Watch', 'Volcano Warning', 'Red Flag Warning'];
@@ -84,7 +93,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                         "data": [ mapData ]
                         };
 
-                        //push this entry to global data container 
+                        //push this entry to global data container
                         aMapData[state] = rowMap;
                     }
                 }
@@ -121,7 +130,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                                 "data": [ mapData ]
                             };
 
-                            //push this entry to global data container 
+                            //push this entry to global data container
                             aMapData[state] = rowMap;
                         }
                     }
@@ -196,13 +205,13 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             longitude: oGeoLoc.longitude
                         };
                     }
-                } 
+                }
             });
         });
 
         //draw bubbles for Volunteers
         map.bubbles(Object.keys(aVolunteersTmp).map(function(_) { return aVolunteersTmp[_]; }), {
-            popupTemplate: function (geo, data) { 
+            popupTemplate: function (geo, data) {
                 var html = '<div class="hoverinfo"><h4>Volunteers</h4>';
 
                 angular.forEach(data.data, function(row){
@@ -262,7 +271,7 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                 var x2js = new X2JS();
                 var femaNewsData = x2js.xml_str2json( data );
                 $scope.femaNewsData = femaNewsData.rss.channel.item;
-            }, 
+            },
             function(error) { //error
                 console.log(error);
             }

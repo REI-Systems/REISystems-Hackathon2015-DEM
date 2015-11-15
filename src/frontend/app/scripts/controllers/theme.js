@@ -43,4 +43,19 @@ app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
       $scope.close = function () {
         $mdSidenav('left').close();
       };
+    })
+    .config(function($mdThemingProvider) {
+      // Extend the red theme with a few different colors
+      var darkBlueMap = $mdThemingProvider.extendPalette('indigo', {
+        '500': '112e51',
+        'A400': '981b1e'
+      });
+      // Register the new color palette map with the name <code>neonRed</code>
+      $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
+      // Use that theme for the primary intentions
+      $mdThemingProvider.theme('default')
+        .primaryPalette('darkBlue')
+        .accentPalette('darkBlue',{
+          'default': 'A400'
+        });
     });

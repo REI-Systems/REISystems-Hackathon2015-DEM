@@ -1,14 +1,15 @@
 
+
 <div ng-cloak>
   <md-content>
-    <md-tabs class="md-accent" md-dynamic-height>
-      <md-tab label="Map">
+    <md-tabs class="md-accent" md-dynamic-height md-selected="selectedIndex">
+      <md-tab label="Map" ng-disabled="disableMapTab">
         <md-content layout-margin>
           <h1 class="md-display-1">Disaster Map</h1>
 
           <div layout="row">
-            <div flex="100" flex-gt-sm="33" flex-gt-lg="50" flex-order="1">
-              <h3 class="md-title">
+            <div flex="100" flex-gt-sm="33"  flex-order="2">
+              <h3 class="md-subhead">
                 &#8220;Volunteering with the DEM was a brilliant experience and one
                 that I would highly recommend. The chance to help out survivors during
                 the Wildfires in Washington State in 2014 provided valuable experiences
@@ -19,7 +20,7 @@
               <em>- Tractor Supplies Inc.</em>
             </div>
 
-            <div flex="100" flex-gt-sm="67" flex-gt-lg="50" flex-order="2" id="container" style="position: relative; width: 700px; height: 350px;"></div>
+            <div flex="100" flex-gt-sm="67" flex-order="1" id="container" style="position: relative; width: 700px; height: 350px;"></div>
           </div>
 
           <br clear="all"><br clear="all">
