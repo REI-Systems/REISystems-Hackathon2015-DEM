@@ -1,3 +1,5 @@
+'use strict';
+
 //directives related to form submission
 app.directive('formSubmit', function() {
   return {
