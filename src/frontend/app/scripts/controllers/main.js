@@ -421,15 +421,28 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                             });
                         });
 
+                        var numFormatter = function nFormatter(num) {
+                            if (num >= 1000000000) {
+                                return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+                            }
+                            if (num >= 1000000) {
+                                return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+                            }
+                            if (num >= 1000) {
+                                return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                            }
+                            return num;
+                        };
+
                         $scope.options = {
                             chart: {
                                 type: 'multiBarChart',
-                                height: 450,
+                                height: 470,
                                 margin : {
                                     top: 20,
                                     right: 20,
-                                    bottom: 45,
-                                    left: 45
+                                    bottom: 60,
+                                    left: 70
                                 },
                                 clipEdge: true,
                                 staggerLabels: true,
@@ -439,15 +452,15 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
                                 wrapLabels: true,
                                 xAxis: {
                                     axisLabel: 'Disaster Category',
-                                    showMaxMin: false
+                                    showMaxMin: false,
+                                    axisLabelDistance: 10
                                 },
                                 yAxis: {
-                                    axisLabel: 'Y Axis',
-                                    axisLabelDistance: -20,
-                                    tickFormat: function(d){
-                                        return d3.format(',.1f')(d);
-                                    }
+                                    axisLabel: 'Estimated Total Project Amount',
+                                    axisLabelDistance: -10,
+                                    tickFormat : function(d) { return "$" + numFormatter(d); }
                                 }
+
                             }
                         };
 
