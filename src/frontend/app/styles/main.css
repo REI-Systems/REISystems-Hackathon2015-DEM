@@ -32,10 +32,9 @@ a:hover{
 
 /* Tabs
    ========================================================================== */
-/**
- * Remove box shadow and vertical align center
- */
-
+.md-tab{
+  font-weight: 700;
+}
 
 /* Material Chips
    ========================================================================== */
@@ -44,6 +43,7 @@ a:hover{
  */
 .md-chips{
   font-family: 'Source Sans Pro';
+  font-weight: 700;
 }
 md-chips.md-default-theme, md-chips .md-chips {
 	box-shadow: none;
