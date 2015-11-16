@@ -1,13 +1,13 @@
 <div class="md-padding">
 <h1 class="md-display-1">Registration Form</h1>
 <md-content>
-<p>We're the community! We connect businesses who want to help people in difficult time of there lives. It is through the time and care of ordinary people that we can do extraordinary things.</p>
-<p>Make a difference today. Register Your business!</p>
+<p>We're the community! We connect businesses who want to help people before, during and after disasters. It is through the time and care of ordinary people that we can do extraordinary things.</p>
+<p>Make a difference today. Register Your Business!</p>
 <div class="form-general-error">{{generalMessage}}</div>
 </md-content>
 <form name="registrationForm" id="registration" form-submit="submit()" novalidate layout="column" ng-cloak class="md-inline-form">
 
-<div>	
+<div>
 	<h2 class="md-title">Business Information</h2>
 	<md-content >
 		<div layout layout-sm="column">
@@ -15,7 +15,7 @@
 				<label>Enter Business Name<span class="form-asterisk">*</span></label>
 				<input ng-model="form.businessName" type="text" id="businessName" required>
 			</md-input-container>
-			
+
 			<md-input-container flex>
 				<label>Enter Street Address<span class="form-asterisk">*</span></label>
 				<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" required>
@@ -100,13 +100,12 @@
 				 required>
 					<md-option ng-repeat="option in compensationTypeOptions track by option" value="{{option}}">{{option}}</md-option>
 				</md-select>
-				<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
 			</md-input-container>
 		</div>
 	</md-content>
 </div>
 <md-content>
-	<p>Fields marked with <span style="color:red">*</span> are required</p>
+	<p>Fields marked with <span class="form-help-asterisk">*</span> are required</p>
 	<md-button class="md-raised md-primary" type="submit" id="submit"ng-disabled="registrationForm.$invalid">Submit</md-button>
 </md-content>
 </form>
