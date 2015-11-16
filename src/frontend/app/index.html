@@ -20,7 +20,8 @@
     <!-- include: "type": "css", "files": "styles/*.css" -->
     <!-- endbuild -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" />
 
   </head>
   <body ng-app="frontendApp">
@@ -38,7 +39,7 @@
         <md-button ng-click="toggleLeft()" class="md-icon-button" hide-gt-md>
           <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
         </md-button>
-        <h2><span>FEMA</span></h2>
+        <h2><span>DEM</span></h2>
       </div>
 
     </md-toolbar>
@@ -48,6 +49,10 @@
       <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
         <md-content ng-controller="LeftCtrl">
+
+          <div>
+            <img src="images/fema.jpg" style="width: 120px; margin-left: 80px; margin-top: 20px;">
+          </div>
 
           <md-list ng-cloak>
 
@@ -67,6 +72,7 @@
             </md-list-item>
 
           </md-list>
+
 
           <ul class="nav navbar-nav">
             <li class="active"><a href="#/">Home</a></li>
