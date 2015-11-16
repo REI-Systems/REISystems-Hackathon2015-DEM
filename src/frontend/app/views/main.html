@@ -47,7 +47,9 @@
 
               </slick>
 
-              <md-button href="#/registration" class="md-raised md-warn" style="color:#000; padding:10px; font-weight:700; font-size:18px;">Take action now!</md-button>
+              <div layout="row" layout-align="center center">
+                <md-button href="#/registration" class="md-raised md-warn" style="color:#000; padding:10px; font-weight:700; font-size:18px;">Take action now!</md-button>
+              </div>
 
             </div>
 
@@ -70,25 +72,22 @@
           </div>
 
           <md-content layout-margin>
-            <h1 class="md-display-1">Funded Public Assistance Projects</h1>
+            <h1 class="md-display-1">Summary of Funded Public Assistance Projects</h1>
+            <h2 class="md-subhead">Through the PA Program (CDFA Number 97.036), FEMA provides supplemental Federal disaster grant assistance for debris removal, emergency protective measures, and the repair, replacement, or restoration of disaster-damaged, publicly owned facilities and the facilities of certain Private Non-Profit (PNP) organizations. The PA Program also encourages protection of these damaged facilities from future events by providing assistance for hazard mitigation measures during the recovery process.  This dataset lists all public assistance recipients, designated as Applicants in the data. The dataset also features a list of every funded, individual project, called project worksheets.</h2>
           </md-content>
 
           <div id="graph-container">
               <nvd3 options='options' data='data'></nvd3>
           </div>
 
+          <br><br><br>
+
         </md-content>
       </md-tab>
       <md-tab label="List">
         <md-content layout-margin>
           <h1 class="md-display-1">Disaster List</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis
-            ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat
-            aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin
-            consectetur felis nec, feugiat ultricies mi.
-          </p>
-
+          <h2 class="md-headline">Please select a state to view detailed information about Current Disasters and Volunteering Businesses</h2>
           <md-input-container>
             <md-select ng-model="selectedState" placeholder="Select a state" ng-change="loadListByState(selectedState)">
               <md-option ng-value="state.name" ng-repeat="state in aState">{{ state.state }}</md-option>
