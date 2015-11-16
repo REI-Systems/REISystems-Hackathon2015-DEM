@@ -1,18 +1,6 @@
-app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
+app.controller('NavCtrl', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
       $scope.toggleLeft = buildDelayedToggler('left');
-      /**
-       * Navigate to url
-       */
-      $scope.navigateTo = function(to, event){
-        $mdDialog.show(
-          $mdDialog.alert()
-          .title('Navigating')
-          .content('Imagine being taken to ' + to)
-          .ariaLabel('Navigation demo')
-          .ok('Ok')
-          .targetEvent(event)
-        );
-      };
+
       /**
        * Supplies a function that will continue to operate until the
        * time is up.
@@ -38,29 +26,9 @@ app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
         }, 200);
       }
 
-    })
-    .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav) {
+    }])
+    .controller('LeftCtrl', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
       $scope.close = function () {
         $mdSidenav('left').close();
       };
-    })
-    .config(function($mdThemingProvider) {
-      // Extend the red theme with a few different colors
-      var darkBlueMap = $mdThemingProvider.extendPalette('indigo', {
-        '500': '112e51',
-        '600': 'e31c3d',
-        'A200': 'FAD980',
-        'A400': '981b1e',
-      });
-      // Register the new color palette map with the name <code>neonRed</code>
-      $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
-      // Use that theme for the primary intentions
-      $mdThemingProvider.theme('default')
-        .primaryPalette('darkBlue')
-        .warnPalette('darkBlue',{
-          'default': 'A200'
-        })
-        .accentPalette('darkBlue',{
-          'default': 'A400'
-        });
-    });
+    }]);

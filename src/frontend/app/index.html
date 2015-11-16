@@ -54,19 +54,16 @@
 
           <md-list ng-cloak>
 
-            <md-list-item ng-click="navigateTo('home', $event)">
-              <md-icon aria-label="Home" class="material-icons">home</md-icon>
-              <p>Home</p>
+            <md-list-item>
+              <md-button ng-href="#/"><md-icon aria-label="Home" class="material-icons">home</md-icon> Home</md-button>
             </md-list-item>
             <md-divider></md-divider>
-            <md-list-item ng-click="navigateTo('about', $event)">
-              <md-icon aria-label="About" class="material-icons">info</md-icon>
-              <p>About</p>
+            <md-list-item>
+              <md-button ng-href="#/about"><md-icon aria-label="About" class="material-icons">info</md-icon> About</md-button>
             </md-list-item>
             <md-divider></md-divider>
-            <md-list-item ng-click="navigateTo('registration', $event)">
-              <md-icon aria-label="Registration" class="material-icons">account_box</md-icon>
-              <p>Registration</p>
+            <md-list-item>
+              <md-button ng-href="#/registration"><md-icon aria-label="Registration" class="material-icons">account_box</md-icon> Registration</md-button>
             </md-list-item>
 
           </md-list>
