@@ -441,7 +441,7 @@ module.exports = function (grunt) {
         templates: {
           html: {
             js: '<script src="{filePath}"></script>',
-            css: '<link rel="stylesheet" type="text/css" href="{filePath}" />',
+            css: '<link rel="stylesheet" type="text/css" href="{filePath}" />'
           }
         }
       },

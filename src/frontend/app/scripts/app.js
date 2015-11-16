@@ -51,7 +51,7 @@ var app = angular
           '500': '112e51',
           '600': 'e31c3d',
           'A200': 'FAD980',
-          'A400': '981b1e',
+          'A400': '981b1e'
         });
 
         // Register the new color palette map with the name <code>neonRed</code>

@@ -91,7 +91,7 @@ module.exports = function(config) {
     logLevel: config.LOG_DEBUG,
     
     browserNoActivityTimeout: 100000,
-    captureTimeout: 100000,
+    captureTimeout: 100000
 
     // Uncomment the following lines if you are using grunt's server to run the tests
     // proxies: {
