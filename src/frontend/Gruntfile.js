@@ -401,6 +401,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/data',
           dest: '<%= yeoman.dist %>/data',
           src: ['*.json']
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/fonts',
+          dest: '<%= yeoman.dist %>/fonts',
+          src: ['*']
         }]
       },
       styles: {
@@ -441,7 +446,7 @@ module.exports = function (grunt) {
         templates: {
           html: {
             js: '<script src="{filePath}"></script>',
-            css: '<link rel="stylesheet" type="text/css" href="{filePath}" />',
+            css: '<link rel="stylesheet" type="text/css" href="{filePath}" />'
           }
         }
       },
