@@ -312,4 +312,153 @@ app.controller('MainCtrl', ['$scope', 'ApiInterfaceService', 'usSpinnerService',
 
     //load fema region news
     $scope.loadFemaNewsRegion();
+
+    //bar graph section
+    var disasterIdArr = [];
+
+    var oParams = {
+        "$filter": "incidentBeginDate gt '"+moment().subtract(6, 'months').format('YYYY-MM-DD')+"T00:00:00.000Z'",
+        "$top": "1000",
+        "$format": "json"
+    };
+
+    ApiInterfaceService.call('femaDisaster', '', oParams).then(
+        function(data){ //success
+            var femaData = data;
+            if(femaData && femaData.DisasterDeclarationsSummaries) {
+                angular.forEach(femaData.DisasterDeclarationsSummaries, function(row) {
+                    //if(disasterIdArr.indexOf(row.disasterNumber) == -1)
+                    if(typeof disasterIdArr[row.disasterNumber] === 'undefined')
+                        disasterIdArr[row.disasterNumber] = row.incidentType;
+                });
+
+                var filterClause = "";
+                angular.forEach(disasterIdArr, function(value, key){
+
+                    if(key == disasterIdArr.length - 1)
+                        filterClause += "disasterNumber eq " + key;
+                    else
+                        filterClause += "disasterNumber eq " + key + " or ";
+                });
+
+                var oParams = {
+                    "$filter": filterClause,
+                    "$top": "5000",
+                    "$format": "json"
+                }
+
+                ApiInterfaceService.call('publicAssistDetails', '', oParams).then(
+                    function(data){
+                        console.log("Public Assistance Funding Api");
+
+                        var chartArr = [];
+                        var disasterType = {'A':'A - Debris Removal',
+                            'B':'B - Protective Measures',
+                            'C':'C - Roads and Bridges',
+                            'D':'D - Water Control Facilities',
+                            'E':'E - Public Buildings',
+                            'F':'F - Public Utilities',
+                            'G':'G - Recreational or Other',
+                            'Z':'Z - State Management'
+                        };
+
+                        angular.forEach(data.PublicAssistanceFundedProjectsDetails, function(row){
+
+                            var damageCat = disasterType[row.damageCategoryCode.charAt(0)];
+                            var obj2 = {x:damageCat, y:row.projectAmount};
+                            var obj1 = {};
+                            var disType = disasterIdArr[row.disasterNumber];
+
+                            if(!chartArr[disType]) {
+                                obj1.key = disType;
+                                obj1.values = [obj2];
+                                chartArr[disType] = obj1;
+                            } else {
+                                var exists = false;
+
+
+                                angular.forEach(chartArr[disType].values, function(axisValues){
+
+                                    if(axisValues.x === damageCat){
+                                        axisValues.y = axisValues.y + row.projectAmount;
+                                        exists = true;
+                                    }
+                                });
+                                if(!exists)
+                                    chartArr[disType].values.push(obj2);
+                            }
+                        });
+
+                        chartArr = Object.keys(chartArr).map(function(k){return chartArr[k]});
+
+                        //getting all type of project
+                        var aElement = [];
+                        var highestElement = 0;
+
+                        angular.forEach(chartArr, function(row){
+                            if(row.values.length > highestElement) {
+                                highestElement = row.values.length;
+                                aElement = row.values;
+                            }
+                        });
+
+                        //make sure all projects has same type to compare in barchart, otherwise add type with 0$
+                        angular.forEach(chartArr, function(row){
+                            var aProjectType = [];
+
+                            angular.forEach(row.values, function(xy){
+                                aProjectType.push(xy.x);
+                            });
+
+                            angular.forEach(aElement, function(element){
+                                //if a project type doen't exist, add it 0$
+                                if(aProjectType.indexOf(element.x) === -1) {
+                                    row.values.push({
+                                        'x': element.x,
+                                        'y': 0
+                                    });
+                                }
+                            });
+                        });
+
+                        $scope.options = {
+                            chart: {
+                                type: 'multiBarChart',
+                                height: 450,
+                                margin : {
+                                    top: 20,
+                                    right: 20,
+                                    bottom: 45,
+                                    left: 45
+                                },
+                                clipEdge: true,
+                                staggerLabels: true,
+                                duration: 500,
+                                stacked: false,
+                                reduceXTicks: true,
+                                wrapLabels: true,
+                                xAxis: {
+                                    axisLabel: 'Disaster Category',
+                                    showMaxMin: false
+                                },
+                                yAxis: {
+                                    axisLabel: 'Y Axis',
+                                    axisLabelDistance: -20,
+                                    tickFormat: function(d){
+                                        return d3.format(',.1f')(d);
+                                    }
+                                }
+                            }
+                        };
+
+                        $scope.data = chartArr;
+
+                    }, function(error) { //error
+                        console.log("Error");
+                    });
+            }
+
+        }, function(error) { //error
+            console.log("Error");
+        });
 }]);
