@@ -18,8 +18,38 @@ We have followed agile practices to deliver the application. We started with cre
 
 Here are some Screenshot/Diagrams of the tools we used during this sprint and development process:
 
-Techologies:
+Technologies:
 [![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tech.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tech.png)
+
+Integration:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/architecture.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/architecture.png)
+
+Continuous Integration/Delivery:
+(Develop Branch)
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/ci-cd-dev.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/ci-cd-dev.png)
+(Master Branch)
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/ci-cd-prod.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/ci-cd-prod.png)
+
+CircleCI:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/circle-ci.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/circle-ci.png)
+
+Tutum:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tutum.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tutum.png)
+
+Docker Hub:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/docker-hub.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/docker-hub.png)
+
+Amazon (Monitoring):
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/amazon.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/amazon.png)
+
+Jenkins:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/jenkins.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/jenkins.png)
+
+SonarQube:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/sonar-qube.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/sonar-qube.png)
+
+Jira:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/jira.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/jira.png)
 
 ## Install Environment:
 ####Requirements
