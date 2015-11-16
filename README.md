@@ -1,12 +1,25 @@
-###Welcome to DEM
+###Welcome to DEM: http://dem.reisys.io/
 
 [![Circle CI](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM.svg?style=svg)](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM)
 
 [![Code Climate](https://codeclimate.com/repos/5644bb351787d75306005704/badges/b5bd2cbc12d329bf318b/gpa.svg)](https://codeclimate.com/repos/5644bb351787d75306005704/feed)
 
-#####A Proof of Concept Tool Developed for FEMA by DEM TEAM at REI Systems, inc
+#####A Proof of Concept Tool Developed for FEMA by DEM Team at REI Systems, inc
 
 **DEM** Businesses is created for those who thrive on pushing the boundaries of their businesses beyond profits. We focus on emergency prevention, relief and recovery. Once we meet survivors’ immediate needs for food, water and shelter, we transition to rebuilding and reconstruction, supporting the people of natural disasters and chronic emergencies in reclaiming their lives. Our program seeks to prevent loss of lives, minimize suffering, reduce property damage, speed recovery, and otherwise better cope with natural or man-made disasters. While fostering a culture of peace, dignity and respect. Beyond immediate help DEM Businesses also make a difference in participating in Disaster Prevention and Disaster Preparedness projects. We give disaster-affected communities greater control over decisions that affect their lives.
+
+### Development Approach
+
+Our team chose the required supporting infrastructure based on Hack-a-Thon requirements, U.S. Web Design Standards. This included GitHub version control, Slack team for communication, JIRA for Agile planning, Docker containers, Docker Hub for hosting images, Circle CI for continuous integration, SonarQube for unit testing coverage monitoring, Tutum for automated container deployment, and AWS for hosting.
+
+For frontend technologies, we've selected: AngularJS with Material Framework, Bower & NPM for package management, NodeJS and Grunt for task-runner, Yeoman as scaffolding tool, D3 for chart/Map, Firebase for NoSQL cloud database, Karma/Jasmine as task/framework for unit testing, Amazon API Gateway for API Proxy (CORS issues) and vagrant with provisioning as dev tool for developer environment.
+
+We have followed agile practices to deliver the application. We started with creating the user stories along with acceptance criteria, then during the sprint planning session we pointed out the stories as a team based on the complexity of the feature. We had regular 15 minutes scrum meeting to discuss the status and solve the impediments if any.
+
+Here are some Screenshot/Diagrams of the tools we used during this sprint and development process:
+
+Techologies:
+[![click to expand](https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tech.png)] (https://raw.githubusercontent.com/REI-Systems/REISystems-Hackathon2015-DEM/develop/architecture/docs/tech.png)
 
 ## Install Environment:
 ####Requirements
