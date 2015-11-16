@@ -22,7 +22,7 @@ var app = angular
     'firebase',
     'angularSpinner',
     'angular-carousel',
-    'slickCarousel'
+    'slickCarousel',
     'nvd3'
   ])
   .config(['$routeProvider', function ($routeProvider,$locationProvider) {
