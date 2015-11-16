@@ -23,6 +23,7 @@ var app = angular
     'angularSpinner',
     'angular-carousel',
     'slickCarousel'
+    'nvd3'
   ])
   .config(['$routeProvider', function ($routeProvider,$locationProvider) {
     $routeProvider
