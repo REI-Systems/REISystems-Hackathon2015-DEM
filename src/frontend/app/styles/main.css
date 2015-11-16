@@ -93,3 +93,30 @@ md-chips.md-default-theme, md-chips .md-chips {
   width: 100%;
   height: 100%;
 }
+.aboutus_img{
+  width:100%
+}
+.aboutus_quote{
+  font-family:'Times New Roman';
+  font-size:36px;
+  text-align:right;
+}
+.aboutus_quote_author{
+  font-family:Vivaldi,cursive;
+  font-size:30px;
+  text-align:right;
+}
+@media screen and (max-width: 600px) {
+    .aboutus_quote_author,.aboutus_quote {
+        text-align: center;
+    }
+}
+.test-btn{
+  background-color:#F8DF9C!important;
+  color:#000000!important;
+  font-weight:bold!important;
+}
+
+.paragraph-remove-margin{
+  margin-top:0;
+}
