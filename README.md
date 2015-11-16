@@ -1,6 +1,12 @@
+###Welcome to DEM
+
 [![Circle CI](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM.svg?style=svg)](https://circleci.com/gh/REI-Systems/REISystems-Hackathon2015-DEM)
 
 [![Code Climate](https://codeclimate.com/repos/5644bb351787d75306005704/badges/b5bd2cbc12d329bf318b/gpa.svg)](https://codeclimate.com/repos/5644bb351787d75306005704/feed)
+
+#####A Proof of Concept Tool Developed for FEMA by DEM TEAM at REI Systems, inc
+
+**DEM** Businesses is created for those who thrive on pushing the boundaries of their businesses beyond profits. We focus on emergency prevention, relief and recovery. Once we meet survivors’ immediate needs for food, water and shelter, we transition to rebuilding and reconstruction, supporting the people of natural disasters and chronic emergencies in reclaiming their lives. Our program seeks to prevent loss of lives, minimize suffering, reduce property damage, speed recovery, and otherwise better cope with natural or man-made disasters. While fostering a culture of peace, dignity and respect. Beyond immediate help DEM Businesses also make a difference in participating in Disaster Prevention and Disaster Preparedness projects. We give disaster-affected communities greater control over decisions that affect their lives.
 
 ## Install Environment:
 ####Requirements
