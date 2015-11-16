@@ -5,7 +5,7 @@
     <md-tabs class="md-accent" md-dynamic-height md-selected="selectedIndex">
       <md-tab label="Map" ng-disabled="disableMapTab">
         <md-content layout-margin>
-          <h1 class="md-display-1">Disaster Map</h1>
+          <h1 class="md-display-1">Disasters Map</h1>
 
           <div layout="row" layout-wrap>
 
@@ -57,8 +57,9 @@
 
           </div>
 
+
           <div layout="row" layout-wrap>
-            <div flex="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:6">
+            <div flex="100" flex-gt-sm="50" flex-gt-md="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:3">
               <md-card>
                 <md-card-content>
                   <h2 class="md-title"><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h2>
@@ -66,6 +67,14 @@
                 </md-card-content>
               </md-card>
             </div>
+          </div>
+
+          <md-content layout-margin>
+            <h1 class="md-display-1">Funded Public Assistance Projects</h1>
+          </md-content>
+
+          <div id="graph-container">
+              <nvd3 options='options' data='data'></nvd3>
           </div>
 
         </md-content>
@@ -126,45 +135,19 @@
 
           </div>
 
+          <div layout="row" layout-wrap>
+            <div flex="100" flex-gt-sm="50" flex-gt-md="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:3">
+              <md-card>
+                <md-card-content>
+                  <h2 class="md-title"><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h2>
+                  <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
+                </md-card-content>
+              </md-card>
+            </div>
+          </div>
+
         </md-content>
       </md-tab>
     </md-tabs>
   </md-content>
-</div>
-
-
-<!-- <h1 class="md-headline">News</h1>
-<md-list-item class="md-3-line" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
-  <div class="md-list-item-text">
-    <h3><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h3>
-    <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
-  </div>
-</md-list-item> -->
-
-
-<!-- <div layout="row" layout-wrap>
-  <div flex="33" ng-repeat="item in femaNewsData | unique:'title' | limitTo:6">
-    <md-card>
-      <md-card-content>
-        <h2 class="md-title"><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h2>
-        <p ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></p>
-      </md-card-content>
-    </md-card>
-  </div>
-</div> -->
-
-<!-- <div id="news-container" style="clear:both; margin: 10px;">
-    <ul rn-carousel class="image" rn-carousel-transition="hexagon" rn-carousel-controls style="height: 200px !important;">
-        <li id="news-feeds-item-{{$index}}" ng-repeat="item in femaNewsData | unique:'title' | limitTo:5">
-            <div class="layer">
-                <span>
-                    <h4><a href="{{item.link}}" target="_blank" ng-bind-html="item.title"></a></h4>
-                </span>
-                <span ng-bind-html="item.description|htmlToPlaintext|cut:true:200"></span>
-            </div>
-        </li>
-    </ul>
-</div> -->
-<div id="graph-container">
-    <nvd3 options='options' data='data'></nvd3>
 </div>

@@ -401,6 +401,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/data',
           dest: '<%= yeoman.dist %>/data',
           src: ['*.json']
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/fonts',
+          dest: '<%= yeoman.dist %>/fonts',
+          src: ['*']
         }]
       },
       styles: {

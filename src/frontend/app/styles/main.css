@@ -31,6 +31,8 @@ a:hover{
 .slick-slide .md-title{
   font-size: 16px;
   line-height: 24px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 
@@ -74,11 +76,24 @@ md-chips.md-default-theme, md-chips .md-chips {
   padding-bottom: 0px !important;
 }
 
-/* Map Overrides
+/* Carousel
    ========================================================================== */
 .slick-slider{
   margin-bottom: 0px;
 }
+.slick-prev::before, .slick-next::before {
+  color: #000;
+}
+.slick-next{
+  right: 10px;
+}
+.slick-prev{
+  left: 0;
+}
+.slick-slide em{
+  margin-left: 30px
+}
+
 
 /* Registration
    ========================================================================== */
