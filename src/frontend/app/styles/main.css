@@ -28,6 +28,10 @@ a:hover{
 .md-title{
   font-family: "Merriweather";
 }
+.slick-slide .md-title{
+  font-size: 16px;
+  line-height: 24px;
+}
 
 
 /* Tabs
