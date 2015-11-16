@@ -21,7 +21,8 @@ var app = angular
     'ngMaterial',
     'firebase',
     'angularSpinner',
-    'angular-carousel'
+    'angular-carousel',
+    'slickCarousel'
   ])
   .config(['$routeProvider', function ($routeProvider,$locationProvider) {
     $routeProvider
