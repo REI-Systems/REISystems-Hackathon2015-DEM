@@ -67,7 +67,7 @@ Run command lines in order to set up the project in your machine :
 <pre>
 $ git clone -b develop https://github.com/REI-Systems/REISystems-Hackathon2015-DEM.git
 $ cd REISystems-Hackathon2015-DEM/conf/vagrant
-$ vagrant up
+$ vagrant up    #Proceed to next command even this command returns error messages
 $ vagrant provision --provision-with shell   #sync your local environment with updated dev dependencies
 $ vagrant ssh
 $ cd /var/www/hat-2015
