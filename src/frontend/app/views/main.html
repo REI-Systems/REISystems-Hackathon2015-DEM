@@ -7,20 +7,54 @@
         <md-content layout-margin>
           <h1 class="md-display-1">Disaster Map</h1>
 
-          <div layout="row">
-            <div flex="100" flex-gt-sm="33"  flex-order="1">
-              <h3 class="md-subhead">
-                &#8220;Volunteering with the DEM was a brilliant experience and one
-                that I would highly recommend. The chance to help out survivors during
-                the Wildfires in Washington State in 2014 provided valuable experiences
-                for my employees and I. We had opportunities to contribute to the greater
-                cause and efforts, but also gained valuable knowledge, skills and experience
-                which continue inspiring other businesses in the area.&#8221;
-              </h3>
-              <em>- Tractor Supplies Inc.</em>
+          <div layout="row" layout-wrap>
+
+            <div flex="100" flex-gt-md="33" flex-order="2">
+
+              <slick dots="true" slides-to-show="1" slides-to-scroll="1" >
+                <div>
+                  <h3 class="md-title">
+                    &#8220;Volunteering with the DEM was a brilliant experience and one
+                    that I would highly recommend. The chance to help out survivors during
+                    the Wildfires in Washington State in 2014 provided valuable experiences
+                    for my employees and I. We had opportunities to contribute to the greater
+                    cause and efforts, but also gained valuable knowledge, skills and experience
+                    which continue inspiring other businesses in the area.&#8221;
+                  </h3>
+                  <em>Tractor Supplies Inc.</em>
+                </div>
+                <div>
+                  <h3 class="md-title">
+                    &#8220;Hello first I want to Thank you all you are Angels
+                    ~I have Family in the Berry(FLATWOODS)area I talked to my cousin
+                    friday night and she said at that time no one had been there but the
+                    "XYZ Food Mart" they had given Gatorade and a Tent to the Preacher of
+                    Our Church he lost his Home the area was hit bad(not as devasting as others).
+                    The road is Old Cheakum Rd. no towns near by except for Berry and then Tuscaloosa
+                    is bout an Hour aways. Again Thank you !! &#8221;
+                  </h3>
+                  <em>Beverly Hills, Georgia </em>
+                </div>
+                <div>
+                  <h3 class="md-title">
+                    &#8220;The Medical Group 123 helped my mother after she lost her
+                    home of 31 years to a forest fire. Dr. Ray provided emergency coping
+                    therapy session to ease the weight of the trauma. It's that kind of
+                    help that we want others to experience no matter what they are facing&#8221;
+                  </h3>
+                  <em>BCD, New Jersey </em>
+                </div>
+
+              </slick>
+
+              <md-button class="md-raised md-warn">Take action now!</md-button>
+
             </div>
 
-            <div flex="100" flex-gt-sm="67" flex-order="2" id="container" style="position: relative; width: 700px; height: 350px;"></div>
+            <div flex="100" flex-gt-md="67" flex-order="1" >
+              <div id="container" style="position: relative; width: 700px; height: 350px;"></div>
+            </div>
+
           </div>
 
           <br clear="all"><br clear="all">
@@ -133,3 +167,6 @@
         </li>
     </ul>
 </div> -->
+<div id="graph-container">
+    <nvd3 options='options' data='data'></nvd3>
+</div>

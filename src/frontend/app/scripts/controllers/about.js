@@ -3,14 +3,8 @@
 /**
  * @ngdoc function
  * @name frontendApp.controller:AboutCtrl
- * @description
+ * @description Needs to be set to create the view for the about page
  * # AboutCtrl
  * Controller of the frontendApp
  */
-app.controller('AboutCtrl', [function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  }]);
+app.controller('AboutCtrl', [function () {}]);

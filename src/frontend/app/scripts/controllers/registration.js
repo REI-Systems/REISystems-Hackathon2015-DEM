@@ -9,7 +9,7 @@
  */
 
 angular.module('frontendApp')
-  .controller('RegistrationCtrl', ['$rootScope','$scope','firebaseFactory','ApiInterfaceService','$q','$log','$location',function ($rootScope,$scope,firebaseFactory,ApiInterfaceService,$q,$log,$location) {
+  .controller('RegistrationCtrl', ['$rootScope','$scope','firebaseFactory','ApiInterfaceService','$q','$log','$location','$mdToast',function ($rootScope,$scope,firebaseFactory,ApiInterfaceService,$q,$log,$location,$mdToast) {
     //get state data from api
     $scope.loadStateOptions = function(){
     	var states = ApiInterfaceService.call('usGeoloc','',{});
@@ -53,19 +53,51 @@ angular.module('frontendApp')
     }
     //submission processing
     $scope.submit = function() {
-    	var phone = $scope.form.phone;
+    	//angularjs added some extra properties to our form, angular.toJson strips it, and we set it back up as an object
+    	var form = JSON.parse(angular.toJson($scope.form));
+    	var phone = form.phone;
     	phone = phone.replace(/\D/g,'');
     	phone = phone.substring(0,3)+"-"+phone.substring(3,6)+"-"+phone.substring(6,10);
-    	$scope.form.phone = phone;
-    	var promise = firebaseFactory.addItem($scope.form);
+    	form.phone = phone;
+    	var promise = firebaseFactory.addItem(form);
     	promise.then(function(resolve){
     		$location.path('/');
-    		$rootScope.$emit('notification', {msg:'Successful submission, Thanks for registering!'});
-    	}, function(reject){
+    		$scope.showSuccessToast();
+		}, function(reject){
     		$log.error(reject);
     		$scope.generalMessage = "Error making submission, please try again later";
     	});
 	};
+	//required code for toast notification
+	$scope.showSuccessToast = function() {
+		$mdToast.show(
+			$mdToast.simple()
+				.content('Submission Successful!')
+				.position($scope.getToastPosition())
+				.hideDelay(3000)
+		);
+	};
+	var last = {
+      bottom: true,
+      top: false,
+      left: false,
+      right: true
+    };
+	$scope.toastPosition = angular.extend({},last);
+	$scope.getToastPosition = function() {
+		sanitizePosition();
+		return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
+	};
+	function sanitizePosition() {
+		var current = $scope.toastPosition;
+		if ( current.bottom && last.top ) current.top = false;
+		if ( current.top && last.bottom ) current.bottom = false;
+		if ( current.right && last.left ) current.left = false;
+		if ( current.left && last.right ) current.right = false;
+		last = angular.extend({},current);
+	}
 	//address validation, done on submit
 	$scope.validateAddress = function(){
 		var deferred = $q.defer();
@@ -139,4 +171,5 @@ angular.module('frontendApp')
     	'Volunteer',
 		'Compensation'
     ];
+
   }]);

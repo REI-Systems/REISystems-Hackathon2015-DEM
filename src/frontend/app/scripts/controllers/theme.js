@@ -1,18 +1,8 @@
-app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
+'use strict';
+
+app.controller('NavCtrl', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
       $scope.toggleLeft = buildDelayedToggler('left');
-      /**
-       * Navigate to url
-       */
-      $scope.navigateTo = function(to, event){
-        $mdDialog.show(
-          $mdDialog.alert()
-          .title('Navigating')
-          .content('Imagine being taken to ' + to)
-          .ariaLabel('Navigation demo')
-          .ok('Ok')
-          .targetEvent(event)
-        );
-      };
+
       /**
        * Supplies a function that will continue to operate until the
        * time is up.
@@ -38,9 +28,9 @@ app.controller('NavCtrl', function ($scope, $timeout, $mdSidenav, $mdDialog) {
         }, 200);
       }
 
-    })
-    .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav) {
+    }])
+    .controller('LeftCtrl', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
       $scope.close = function () {
         $mdSidenav('left').close();
       };
-    });
+    }]);

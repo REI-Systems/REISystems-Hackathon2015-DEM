@@ -28,7 +28,17 @@ a:hover{
 .md-title{
   font-family: "Merriweather";
 }
+.slick-slide .md-title{
+  font-size: 16px;
+  line-height: 24px;
+}
 
+
+/* Tabs
+   ========================================================================== */
+.md-tab{
+  font-weight: 700;
+}
 
 /* Material Chips
    ========================================================================== */
@@ -37,6 +47,7 @@ a:hover{
  */
 .md-chips{
   font-family: 'Source Sans Pro';
+  font-weight: 700;
 }
 md-chips.md-default-theme, md-chips .md-chips {
 	box-shadow: none;
@@ -61,4 +72,60 @@ md-chips.md-default-theme, md-chips .md-chips {
 .datamaps-legend {
   position: static !important;
   padding-bottom: 0px !important;
+}
+
+.md-input-container.md-default-theme, md-input-container label, md-input-container.md-default-theme, md-input-container .md-placeholder,md-select.md-default-theme, md-select .md-select-value.md-select-placeholder{
+  color:#6d6d6d;
+}
+.form-asterisk{
+  color:red;
+}
+.form-general-error{
+  color:red;
+}
+.text-center{
+  text-align:center;
+}
+.yt_vid_wrap{
+  float: none;
+  clear: both;
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.yt_vid_wrap iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.aboutus_img{
+  width:100%
+}
+.aboutus_quote{
+  font-family:'Times New Roman';
+  font-size:36px;
+  text-align:right;
+}
+.aboutus_quote_author{
+  font-family:Vivaldi,cursive;
+  font-size:30px;
+  text-align:right;
+}
+@media screen and (max-width: 600px) {
+    .aboutus_quote_author,.aboutus_quote {
+        text-align: center;
+    }
+}
+.aboutus-cta{
+  background-color:#F8DF9C!important;
+  color:#000000!important;
+  font-weight:bold!important;
+}
+
+.paragraph-remove-margin{
+  margin-top:0;
 }
