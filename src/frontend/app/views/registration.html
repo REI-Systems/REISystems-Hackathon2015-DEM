@@ -100,13 +100,12 @@
 				 required>
 					<md-option ng-repeat="option in compensationTypeOptions track by option" value="{{option}}">{{option}}</md-option>
 				</md-select>
-				<span class="error" ng-show="registrationForm.formCompensationType.$dirty && registrationForm.formCompensationType.$invalid">Select an option</span>
 			</md-input-container>
 		</div>
 	</md-content>
 </div>
 <md-content>
-	<p>Fields marked with <span style="color:red">*</span> are required</p>
+	<p>Fields marked with <span class="form-help-asterisk">*</span> are required</p>
 	<md-button class="md-raised md-primary" type="submit" id="submit"ng-disabled="registrationForm.$invalid">Submit</md-button>
 </md-content>
 </form>
