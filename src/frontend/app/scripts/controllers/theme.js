@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('NavCtrl', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
       $scope.toggleLeft = buildDelayedToggler('left');
 
