@@ -130,6 +130,8 @@ $ sudo service docker restart
 Inside your vagrant VM, run the following commands
 
 <pre>
+$ cd /var/www/hat-2015/src/frontend
+$ grunt build
 $ sudo su
 $ cd /var/www/hat-2015
 $ docker-compose -f docker-compose.local.yml up -d
