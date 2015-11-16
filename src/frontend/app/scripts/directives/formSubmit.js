@@ -10,7 +10,7 @@ app.directive('formSubmit', function() {
           res.then(function(resolve){
             if(!resolve){
               formCtrl.$valid = false;
-              $scope.generalMessage = "Invalid Address";
+              $scope.generalMessage = "Invalid Address, please check your address and state";
               $scope.registrationForm.formAddress.$setValidity('address', false);
             }
             if (formCtrl.$valid) {

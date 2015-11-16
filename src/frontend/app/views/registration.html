@@ -3,7 +3,7 @@
 <md-content>
 <p>We're the community! We connect businesses who want to help people in difficult time of there lives. It is through the time and care of ordinary people that we can do extraordinary things.</p>
 <p>Make a difference today. Register Your business!</p>
-<div>{{generalMessage}}</div>
+<div class="form-general-error">{{generalMessage}}</div>
 </md-content>
 <form name="registrationForm" id="registration" form-submit="submit()" novalidate layout="column" ng-cloak class="md-inline-form">
 
@@ -12,25 +12,25 @@
 	<md-content >
 		<div layout layout-sm="column">
 			<md-input-container flex>
-				<label>Enter Business Name<span style="color:red;">*</span></label>
+				<label>Enter Business Name<span class="form-asterisk">*</span></label>
 				<input ng-model="form.businessName" type="text" id="businessName" required>
 			</md-input-container>
 			
 			<md-input-container flex>
-				<label>Enter Street Address<span style="color:red;">*</span></label>
+				<label>Enter Street Address<span class="form-asterisk">*</span></label>
 				<input name="formAddress" ng-change="resetAddressValidation()" ng-model="form.address" type="text" id="address" required>
 			</md-input-container>
 		</div>
 		<div layout layout-sm="column">
 			<md-input-container flex-gt-sm="50">
-				<label>Enter Phone Number<span style="color:red;">*</span></label>
+				<label>Enter Phone Number<span class="form-asterisk">*</span></label>
 				<input name="formPhone" ng-model="form.phone" phone type="text" id="phoneNumber" required>
 				<div ng-messages="registrationForm.formPhone.$error">
 					<div ng-message="phone">Invalid phone number!</div>
 				</div>
 			</md-input-container>
 			<md-input-container flex>
-				<label>Select State<span style="color:red;">*</span></label>
+				<label>Select State<span class="form-asterisk">*</span></label>
 				<md-select name="formState" ng-model="form.state" required>
 					<md-option ng-repeat="option in stateOptions track by option.name" value="{{option.name}}">{{option.state}}</md-option>
 				</md-select>
@@ -39,7 +39,7 @@
 				</div>
 			</md-input-container>
 			<md-input-container flex>
-				<label>Enter Zip Code<span style="color:red;">*</span></label>
+				<label>Enter Zip Code<span class="form-asterisk">*</span></label>
 				<input name="zipcode" ng-model="form.zip" type="text" zipcode id="zip" required>
 				<div ng-messages="registrationForm.zipcode.$invalid">
 					<div ng-message="">Invalid ZipCode</div>
@@ -49,7 +49,7 @@
 		<div layout layout-sm="column">
 
 			<md-input-container flex>
-				<label>Enter Email Address<span style="color:red;">*</span></label>
+				<label>Enter Email Address<span class="form-asterisk">*</span></label>
 				<input ng-model="form.email" type="email" id="email" required>
 			</md-input-container>
 			<md-input-container flex>
@@ -67,7 +67,7 @@
 	<md-content>
 		<div layout layout-sm="column">
 			<md-input-container flex>
-				<label>Select Type of Assistance<span style="color:red;">*</span></label>
+				<label>Select Type of Assistance<span class="form-asterisk">*</span></label>
 				<md-select name="formAssistanceInterest" ng-model="form.assistanceInterest"
 				 required multiple>
 					<md-option ng-repeat="option in assistanceInterestOptions track by option" value="{{option}}">{{option}}</md-option>
@@ -78,7 +78,7 @@
 			</md-input-container>
 
 			<md-input-container flex>
-				<label>Select Radius<span style="color:red;">*</span></label>
+				<label>Select Radius<span class="form-asterisk">*</span></label>
 				<md-select name="formServiceInterest" ng-model="form.serviceInterest"
 				 required>
 					<md-option ng-repeat="option in serviceInterestOptions track by option.value" value="{{option.value}}">{{option.name}}</md-option>
@@ -88,14 +88,14 @@
 		</div>
 		<div layout layout-sm="column">
 			<md-input-container flex>
-				<label>Select Type of Disaster<span style="color:red;">*</span></label>
+				<label>Select Type of Disaster<span class="form-asterisk">*</span></label>
 				<md-select name="formDisasterInterest" ng-model="form.disasterInterest"
 				 required multiple>
 					<md-option ng-repeat="option in disasterInterestOptions track by option" value="{{option}}">{{option}}</md-option>
 				</md-select>
 			</md-input-container>
 			<md-input-container flex>
-				<label>Select Type of Compensation<span style="color:red;">*</span></label>
+				<label>Select Type of Compensation<span class="form-asterisk">*</span></label>
 				<md-select name="formCompensationType" ng-model="form.compensationType"
 				 required>
 					<md-option ng-repeat="option in compensationTypeOptions track by option" value="{{option}}">{{option}}</md-option>
